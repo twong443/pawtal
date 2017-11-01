@@ -1,0 +1,25 @@
+{
+  "name": "pawtal",
+  "version": "1.0.0",
+  "description": "Vet EHR",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twong443/pawtal.git"
+  },
+  "author": "Tiffany Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twong443/pawtal/issues"
+  },
+  "homepage": "https://github.com/twong443/pawtal#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.6"
+  }
+}
