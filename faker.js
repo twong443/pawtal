@@ -1,4 +1,7 @@
-var faker = require("faker");
+var faker   = require("faker"),
+    Patient = require("./models/patients"),
+    Owner   = require("./models/owners");
+// var moment = require("moment");
 
 var sex = ['Female', 'Male'],
     species = ['Dog', 'Cat'],
@@ -6,8 +9,8 @@ var sex = ['Female', 'Male'],
     catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx'];
 
 var randomPet = {
-    name: faker.commerce.productAdjective(),
-    dob: faker.date.past(),
+    name: faker.hacker.adjective(),
+    // dob: moment().format('L'),
     sex: sex[Math.floor(Math.random()*sex.length)],
     type: species[Math.floor(Math.random()*species.length)],
     breed: function(){
@@ -27,10 +30,55 @@ var randomOwner = {
     lastName: faker.name.lastName(),
     phone: faker.phone.phoneNumberFormat(),
     email: faker.internet.email(),
-    address: faker.address.streetAddress() + " " + faker.address.city() + " " + faker.address.stateAbbr() + " " + faker.address.zipCode()
+    address: faker.address.streetAddress() + " " + faker.address.city() + " " + faker.address.stateAbbr() + " " + faker.address.zipCode(),
+    balance: faker.finance.amount()
 }
 
-module.exports = {
-    randomPet: randomPet,
-    randomOwner: randomOwner
+var petsArray = [],
+    ownersArray = [];
+
+randomizePets();
+randomizeOwners();
+
+function randomizePets(){
+    for(i=0; i<11; i++){
+        petsArray.push(randomPet);
+    }
 }
+
+function randomizeOwners(){
+    for(i=0; i<11; i++){
+        ownersArray.push(randomOwner);
+    }
+}
+
+function seedDB(){
+    //Remove all patients
+    Patient.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("removed patients");
+            //add a few pets
+        petsArray.forEach(function(seed){
+            Patient.create(seed, function(err, patient){
+                if(err){
+                    console.log(err);
+                } else{
+                    console.log("added a pet");
+                }
+            });
+        });
+        ownersArray.forEach(function(seed){
+            Owner.create(seed, function(err, owner){
+                if(err){
+                    console.log(err);
+                } else{
+                    console.log("added an owner");
+                }
+            });
+        });
+    });
+}
+
+module.exports = seedDB;
