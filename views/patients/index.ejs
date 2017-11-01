@@ -3,31 +3,22 @@
 <div class="ui container">
         <h1>View all Patients</h1>
         
-        <table class="ui striped compact table">
+        <table class="ui selectable striped compact table">
             <thead>
-                <tr>
+                <tr>                     
                     <th>Patient</th>
-                    <th>Owner</th>
                     <th>Type</th>
-                    <th>DOB</th>
-                    <th>Last Visited</th>
+                    <th>Gender</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Brick</td>
-                    <td>Tiffany</td>
-                    <td>Dog</td>
-                    <td>3/2/2013</td>                    
-                    <td>11/1/2017</td>
+                <% pets.forEach(function(pet){ %>
+                <tr>                   
+                    <td><img class="ui avatar image" src="<%=pet.avatar%>" alt=""><%= pet.name %></td>
+                    <td><%= pet.type %></td>
+                    <td><%= pet.sex %></td>                     
                 </tr>
-                <tr>
-                    <td>Brick</td>
-                    <td>Tiffany</td>
-                    <td>Dog</td>
-                    <td>3/2/2013</td>                    
-                    <td>11/1/2017</td>
-                </tr>
+                <% }); %>
             </tbody>
         </table>
 </div>
