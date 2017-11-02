@@ -50,13 +50,13 @@ randomizePets();
 randomizeOwners();
 
 function randomizePets(){
-    for(var i=0; i<11; i++){
+    for(var i=0; i<85; i++){
         petsArray.push(randomPet());
     }
 }
 
 function randomizeOwners(){
-    for(var i=0; i<11; i++){
+    for(var i=0; i<85; i++){
         ownersArray.push(randomOwner());
     }
 }

@@ -1,9 +1,10 @@
-// //make rows into links
+//make rows into links
 var rowUrls = document.querySelectorAll(".rowUrl");
 
 rowUrls.forEach(function(row){
     var petId = row.attributes[1].textContent;
     row.addEventListener("click", function(){
+        // alert(petId);
         window.location.assign("/patients/" + petId);
     });
 });

@@ -1,7 +1,39 @@
+.main {
+    margin-top: 100px;
+}
+
 .rowUrl {
     cursor: pointer;
 }
 
-.main {
-    margin-top: 100px;
+#theader th {
+    padding: 15px;
+}
+
+input[type="button"] {
+    font-family: Lato, sans-serif;
+    transition: all .3s;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+}
+
+input[type="button"]:not(.active) {
+    background-color:transparent;
+}
+
+.active {
+    background-color: #c7c7c7;
+    color :#fff;
+}
+
+input[type="button"]:hover:not(.active) {
+    background-color: #ddd;
+}
+
+#buttons {
+    float: right;
+    margin-bottom: 20px;
 }
