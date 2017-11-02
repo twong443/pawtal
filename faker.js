@@ -5,27 +5,29 @@ var moment = require("moment");
 
 var sex = ['Female', 'Male'],
     species = ['Dog', 'Cat'],
-    dogBreed = ['Husky', 'German Shepherd', 'Corgi', 'Mastiff', 'Poodle', 'Pomeranian'],
-    catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx'];
+    colors = ['Brown', 'Black', 'White', 'Grey', 'Red', 'Tan', 'Multicolored'],
+    dogBreed = ['Siberian Husky', 'German Shepherd', 'Corgi', 'Mastiff', 'Poodle', 'Pomeranian', 'Golden Retriever', 'Daschund', 'Pitbull', 'Rottweiler', 'Great Dane', 'Labrador', 'Beagle'],
+    catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'];
 
 var randomPet = function() {
+    var formattedDob = moment(faker.date.between('2007-01-01', '2017-11-02')).format('YYYY-MM-DD');
+    var formattedLastVisited = moment(faker.date.past()).format('YYYY-MM-DD');
     var patientType = species[Math.floor(Math.random()*species.length)];
     var patientBreed = "";
     if(patientType === 'Dog'){
         patientBreed = dogBreed[Math.floor(Math.random()*dogBreed.length)]
-     } else {
+    } else {
         patientBreed = catBreed[Math.floor(Math.random()*catBreed.length)]
-     }
-     var formattedDob = moment(faker.date.past()).format('YYYY-MM-DD');
+    }
     return {
         name: faker.address.city(),
         dob: formattedDob,
-        sex: sex[Math.floor(Math.random()*sex.length)],
+        gender: sex[Math.floor(Math.random()*sex.length)],
         type: patientType,
         breed: patientBreed,
-        color: faker.commerce.color(),
-        weight: faker.random.number(),
-        avatar: faker.image.animals()
+        color: colors[Math.floor(Math.random()*colors.length)],
+        weight: faker.random.number({min:5, max:300}),
+        lastVisited: formattedLastVisited
     }
 }
 
@@ -48,13 +50,13 @@ randomizePets();
 randomizeOwners();
 
 function randomizePets(){
-    for(i=0; i<11; i++){
+    for(var i=0; i<11; i++){
         petsArray.push(randomPet());
     }
 }
 
 function randomizeOwners(){
-    for(i=0; i<11; i++){
+    for(var i=0; i<11; i++){
         ownersArray.push(randomOwner());
     }
 }
@@ -72,7 +74,7 @@ function seedDB(){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(patient);
+                    console.log(patient.name);
                 }
             });
         });

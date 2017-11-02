@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    
+    <div class="ui card">
+        <div class="image">
+            <img src="/brick.jpg">
+        </div>
+        <div class="content">
+            <a class="header"><%= pet.name %></a>
+            <div class="meta">
+            <span class="date"><p><i class="paw icon"></i> <%= pet.type %>/ <%= pet.breed %></p></span>
+            </div>
+            <div class="description">
+                <p><strong>DOB: </strong><%= pet.dob %></p>
+                <p><strong>Gender: </strong><%= pet.gender %></p>
+                <p><strong>Color: </strong><%= pet.color %></p>
+                <p><strong>Weight: </strong><%= pet.weight %> lbs</p>
+            </div>
+        </div>
+        <div class="extra content">
+            Last Visited <%= pet.lastVisited %>
+        </div>
+    </div>
+
+</div>
+
+<% include ../partials/footer %>
