@@ -1,37 +1,44 @@
 var faker   = require("faker"),
     Patient = require("./models/patients"),
     Owner   = require("./models/owners");
-// var moment = require("moment");
+var moment = require("moment");
 
 var sex = ['Female', 'Male'],
     species = ['Dog', 'Cat'],
     dogBreed = ['Husky', 'German Shepherd', 'Corgi', 'Mastiff', 'Poodle', 'Pomeranian'],
     catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx'];
 
-var randomPet = {
-    name: faker.hacker.adjective(),
-    // dob: moment().format('L'),
-    sex: sex[Math.floor(Math.random()*sex.length)],
-    type: species[Math.floor(Math.random()*species.length)],
-    breed: function(){
-        if(this.type === 'Dog'){
-           return dogBreed[Math.floor(Math.random()*dogBreed.length)]
-        } else {
-           return catBreed[Math.floor(Math.random()*catBreed.length)]
-        }
-    },
-    color: faker.commerce.color(),
-    weight: faker.random.number(),
-    avatar: faker.image.animals()
+var randomPet = function() {
+    var patientType = species[Math.floor(Math.random()*species.length)];
+    var patientBreed = "";
+    if(patientType === 'Dog'){
+        patientBreed = dogBreed[Math.floor(Math.random()*dogBreed.length)]
+     } else {
+        patientBreed = catBreed[Math.floor(Math.random()*catBreed.length)]
+     }
+     var formattedDob = moment(faker.date.past()).format('YYYY-MM-DD');
+    return {
+        name: faker.address.city(),
+        dob: formattedDob,
+        sex: sex[Math.floor(Math.random()*sex.length)],
+        type: patientType,
+        breed: patientBreed,
+        color: faker.commerce.color(),
+        weight: faker.random.number(),
+        avatar: faker.image.animals()
+    }
 }
 
-var randomOwner = {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    phone: faker.phone.phoneNumberFormat(),
-    email: faker.internet.email(),
-    address: faker.address.streetAddress() + " " + faker.address.city() + " " + faker.address.stateAbbr() + " " + faker.address.zipCode(),
-    balance: faker.finance.amount()
+var randomOwner = function() {
+    return {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        username: faker.internet.userName(),
+        phone: faker.phone.phoneNumberFormat(),
+        email: faker.internet.email(),
+        address: faker.address.streetAddress() + " " + faker.address.city() + " " + faker.address.stateAbbr() + " " + faker.address.zipCode(),
+        balance: faker.finance.amount()
+    }
 }
 
 var petsArray = [],
@@ -42,13 +49,13 @@ randomizeOwners();
 
 function randomizePets(){
     for(i=0; i<11; i++){
-        petsArray.push(randomPet);
+        petsArray.push(randomPet());
     }
 }
 
 function randomizeOwners(){
     for(i=0; i<11; i++){
-        ownersArray.push(randomOwner);
+        ownersArray.push(randomOwner());
     }
 }
 
@@ -65,7 +72,7 @@ function seedDB(){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log("added a pet");
+                    console.log(patient);
                 }
             });
         });
@@ -74,7 +81,6 @@ function seedDB(){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log("added an owner");
                 }
             });
         });

@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var patientSchema = new mongoose.Schema({
     name: String,
+    dob: String,
     sex: String,
 	type: String,
     breed: String,

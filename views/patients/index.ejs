@@ -8,6 +8,8 @@
                 <tr>                     
                     <th>Patient</th>
                     <th>Type</th>
+                    <th>Breed</th>
+                    <th>DOB</th>                    
                     <th>Gender</th>
                 </tr>
             </thead>
@@ -16,6 +18,8 @@
                 <tr>                   
                     <td><img class="ui avatar image" src="<%=pet.avatar%>" alt=""><%= pet.name %></td>
                     <td><%= pet.type %></td>
+                    <td><%= pet.breed %></td>
+                    <td><%= pet.dob %></td>
                     <td><%= pet.sex %></td>                     
                 </tr>
                 <% }); %>

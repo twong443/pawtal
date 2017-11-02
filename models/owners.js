@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var ownerSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
+    username: String,
     phone: String,
     email: String,
     address: String,
