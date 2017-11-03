@@ -8,3 +8,9 @@ rowUrls.forEach(function(row){
         window.location.assign("/patients/" + petId);
     });
 });
+
+var options = {
+	data: ["blue", "green", "pink", "red", "yellow"]
+};
+
+$("#basics").easyAutocomplete(options);
