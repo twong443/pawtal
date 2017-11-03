@@ -3,7 +3,7 @@
 <div class="ui main container">
     <a href="/patients/new" class="ui right floated orange button"><i class="paw icon"></i>Add New Patient</a>
     <h1>View all Patients</h1>
-    <table class="ui selectable striped compact table" id="patientTable">
+    <table class="ui selectable striped compact orange table" id="patientTable">
         <thead>
             <tr id="theader">                     
                 <th>Patient</th>
@@ -12,18 +12,20 @@
                 <th>Color</th>                    
                 <th>DOB</th>                    
                 <th>Gender</th>
+                <th>Owner</th>                
                 <th>Last Visited</th>
             </tr>
         </thead>
         <tbody>
             <% pets.forEach(function(pet){ %>
             <tr class="rowUrl" data-id="<%= pet._id %>">     
-                <td><img class="ui avatar image" src="/brick.jpg" alt=""><%= pet.name %></td>
+                <td class="collapsing"><img class="ui avatar image" src="/brick.jpg" alt=""><%= pet.name %></td>
                 <td><%= pet.type %></td>
                 <td><%= pet.breed %></td>
                 <td><%= pet.color %></td>
                 <td><%= pet.dob %></td>
                 <td><%= pet.gender %></td>                     
+                <td><%= pet.owner.firstName + " " + pet.owner.lastName %></td>                     
                 <td><%= pet.lastVisited %></td>                   
             </tr>             
             <% }); %>

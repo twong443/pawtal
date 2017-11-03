@@ -11,7 +11,8 @@ var patientSchema = new mongoose.Schema({
     allergies: String,
     lastVisited: String,
     avatar: String,
-    owner: {
+    owner:
+    {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Owner"
