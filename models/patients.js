@@ -8,6 +8,7 @@ var patientSchema = new mongoose.Schema({
     breed: String,
     color: String,
     weight: String,
+    allergies: String,
     lastVisited: String,
     avatar: String,
     owner: {
@@ -15,8 +16,15 @@ var patientSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Owner"
         },
-        username: String
-    }
+        firstName: String,
+        lastName: String
+    },
+    visit: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Visit"
+        }
+    ]
 });
 
 module.exports = mongoose.model("Patient", patientSchema); 

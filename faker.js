@@ -62,28 +62,35 @@ function randomizeOwners(){
 }
 
 function seedDB(){
-    //Remove all patients
+    //Remove all patients & owners
     Patient.remove({}, function(err){
         if(err){
             console.log(err);
         }
         console.log("removed patients");
-            //add a few pets
-        petsArray.forEach(function(seed){
-            Patient.create(seed, function(err, patient){
-                if(err){
-                    console.log(err);
-                } else{
-                    console.log(patient.name);
-                }
+        Owner.remove({}, function(err){
+            if(err){
+                console.log(err);
+            }
+            console.log("removed owners");
+                //add a few pets & owners
+            petsArray.forEach(function(seed){
+                Patient.create(seed, function(err, patient){
+                    if(err){
+                        console.log(err);
+                    } else{
+                        // console.log("added patients");
+                    }
+                });
             });
-        });
-        ownersArray.forEach(function(seed){
-            Owner.create(seed, function(err, owner){
-                if(err){
-                    console.log(err);
-                } else{
-                }
+            ownersArray.forEach(function(seed){
+                Owner.create(seed, function(err, owner){
+                    if(err){
+                        console.log(err);
+                    } else{
+                        // console.log("added owners");
+                    }
+                });
             });
         });
     });

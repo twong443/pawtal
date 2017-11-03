@@ -39,10 +39,20 @@
             </div>
         </div>
         
-        <div class="two fields">
+        <div class="three fields">
             <div class="field">
                 <label for="weight">Weight</label>
                 <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+            </div>
+            <div class="field">
+                <label>Owner</label>
+                <select name="owner" class="ui search dropdown">
+                    <option value="">Owner</option>
+                    <% owners.forEach(function(owner){ %>
+                        <option value="<%=owner.firstName %>"><%= owner.firstName %></option>
+                    <% }); %>
+                                   
+                </select>
             </div>
             <div class="field">
                 <label for="avatar">Avatar</label>
