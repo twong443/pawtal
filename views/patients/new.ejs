@@ -42,16 +42,31 @@
         <div class="three fields">
             <div class="field">
                 <label for="weight">Weight</label>
-                <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+                <div class="ui right labeled input">
+                    <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+                    <div class="ui bsaic label">lbs</div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="avatar">Avatar</label>
+                <input type="file" name="avatar" placeholder="Pet Avatar">
             </div>
             <div class="field">
                 <label for="owner">Owner</label>
                 <input id="ownersDb"  placeholder="Owner">
                 <input id="data-holder" type="hidden" name="owner">           
             </div>
-            <div class="field">
-                <label for="avatar">Avatar</label>
-                <input type="file" name="avatar" placeholder="Pet Avatar">
+            <div class="inline field">
+                <div class="ui accordion field">
+                    <div class="ui slider checkbox title">
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Add New Owner</label>
+                    </div>
+                    <div class="content field"> 
+                        <label for="owner">First Name</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="field">

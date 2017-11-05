@@ -44,10 +44,6 @@ app.get("/allOwnerNames", function(req, res){
 
 app.use("/patients", patientRoutes);
 
-function escapeRegex(text) {
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
-
 app.listen(port, process.env.IP, function(){
     console.log("Pawtal Server Has Started");
 });

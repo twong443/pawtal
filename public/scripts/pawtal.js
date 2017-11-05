@@ -9,6 +9,7 @@ rowUrls.forEach(function(row){
     });
 });
 
+// Autocomplete Owner Names
 var options = {
 	url: function(phrase) {
 		return "/allOwnerNames";
@@ -18,8 +19,15 @@ var options = {
         onSelectItemEvent: function() {
             var ownerObject = $("#ownersDb").getSelectedItemData().owner;
             $("#data-holder").val(JSON.stringify(ownerObject)).trigger("change");
+        },
+        match: {
+            enabled: true
         }
     }
 };
 
 $("#ownersDb").easyAutocomplete(options);
+
+// Add New Owner Slider & Accordion
+$('.ui.checkbox').checkbox();
+$('.ui.accordion').accordion();
