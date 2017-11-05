@@ -37,7 +37,12 @@ router.post("/", function(req, res){
     var color = req.body.color;
     var weight = req.body.weight;
     var avatar = req.body.avatar;
-    var owner = req.body.owner;
+    var parseOwner = JSON.parse(req.body.owner);
+    var owner = {
+        id: parseOwner._id,
+        firstName: parseOwner.firstName,
+        lastName: parseOwner.lastName
+    }
     var newPatient = {
         name: name,
         dob: dob,
@@ -57,6 +62,8 @@ router.post("/", function(req, res){
         }
     });
 });
+
+
 
 // //SHOW
 router.get("/:id", function(req,res){

@@ -9,12 +9,18 @@ rowUrls.forEach(function(row){
     });
 });
 
-// var options = {
-// 	url: function(phrase) {
-// 		return "api/countrySearch.php?phrase=" + phrase + "&format=json";
-// 	},
+var options = {
+	url: function(phrase) {
+		return "/allOwnerNames";
+	},
+    getValue: "name",
 
-// 	getValue: "firstName"
-// };
+    list: {
+        onSelectItemEvent: function() {
+            var ownerObject = $("#ownersDb").getSelectedItemData().owner;
+            $("#data-holder").val(JSON.stringify(ownerObject)).trigger("change");
+        }
+    }
+};
 
-// $("#ownersDb").easyAutocomplete(options);
+$("#ownersDb").easyAutocomplete(options);

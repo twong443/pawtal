@@ -25,6 +25,23 @@ app.get("/", function(req, res){
     res.render("landing");
 });
 
+app.get("/allOwnerNames", function(req, res){
+    Owner.find({}, function(err, allOwners){
+        if(err){
+            console.log(err);
+        }
+        var modifiedOwners = [];
+        allOwners.forEach(function(owner){
+            var mod = {
+                "name" : owner.firstName + " " + owner.lastName,
+                "owner" : owner
+            };
+            modifiedOwners.push(mod);
+        });
+        res.send(modifiedOwners);
+    });
+});
+
 app.use("/patients", patientRoutes);
 
 function escapeRegex(text) {
