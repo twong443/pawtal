@@ -14,7 +14,6 @@ var options = {
 		return "/allOwnerNames";
 	},
     getValue: "name",
-
     list: {
         onSelectItemEvent: function() {
             var ownerObject = $("#ownersDb").getSelectedItemData().owner;

@@ -63,8 +63,6 @@ router.post("/", function(req, res){
     });
 });
 
-
-
 // //SHOW
 router.get("/:id", function(req,res){
     Patient.findById(req.params.id, function(err, foundPatient){
