@@ -65,12 +65,12 @@ router.get("/:id", function(req,res){
             console.log(err);
             res.redirect("/");
         }
-        Owner.find().where('_id').equals(foundPatient.owner.id).exec(function(err, owner){
-            if(err || !owner){
+        Owner.findById(foundPatient.owner.id, function(err, foundOwner){
+            if(err || !foundOwner){
                 console.log(err);
             }
-            console.log(foundPatient.owner.id);
-            res.render("patients/show", {pet:foundPatient, owner: owner});
+            console.log(foundOwner);
+            res.render("patients/show", {pet:foundPatient, owner: foundOwner});
         });
     });
 });

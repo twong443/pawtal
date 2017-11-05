@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var random = require("mongoose-simple-random");
 
 var ownerSchema = new mongoose.Schema({
     firstName: String,
@@ -7,13 +8,9 @@ var ownerSchema = new mongoose.Schema({
     phone: String,
     email: String,
     address: String,
-    balance: String,
-    pets:{
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Patient"
-        }
-    }
+    balance: String
 });
+
+ownerSchema.plugin(random);
 
 module.exports = mongoose.model("Owner", ownerSchema); 
