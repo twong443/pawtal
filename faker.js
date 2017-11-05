@@ -64,40 +64,54 @@ function randomizeOwners(){
     }
 }
 
-function seedDB(){
+function ownerSeed(){
+    Owner.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("removed owners");
+        ownersArray.forEach(function(randomOwner){
+            Owner.create(randomOwner, function(err, owner){
+                if(err){
+                    console.log(err);
+                } else{
+                    // console.log("added owners");
+                }
+            });
+        });
+    });
+}
+
+function patientSeed(){
+    Owner.count().exec(function(err, count){
+        var randOwner = Math.floor(Math.random()*count)
+        Owner.findOne().skip(randOwner).exec(
+            function(err, result){
+                console.log(result);
+            });
+    });
     //Remove all patients & owners
     Patient.remove({}, function(err){
         if(err){
             console.log(err);
         }
         console.log("removed patients");
-        Owner.remove({}, function(err){
-            if(err){
-                console.log(err);
-            }
-            console.log("removed owners");
-                //add a few pets & owners
-            ownersArray.forEach(function(seed){
-                Owner.create(seed, function(err, owner){
-                    if(err){
-                        console.log(err);
-                    } else{
-                        // console.log("added owners");
-                    }
-                });
+        petsArray.forEach(function(randomPet){
+            Patient.create(randomPet, function(err, patient){
+                if(err){
+                    console.log(err);
+                } else{
+                    // console.log(patient);
+                    // console.log("added patients");
+                }
             });
-            petsArray.forEach(function(seed){
-                Patient.create(seed, function(err, patient){
-                    if(err){
-                        console.log(err);
-                    } else{
-                        // console.log("added patients");
-                    }
-                });
-            });
-            
         });
     });
+}
+
+function seedDB(){
+    ownerSeed();
+    patientSeed();
 }
 
 module.exports = seedDB;

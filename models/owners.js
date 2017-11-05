@@ -7,7 +7,13 @@ var ownerSchema = new mongoose.Schema({
     phone: String,
     email: String,
     address: String,
-    balance: String
+    balance: String,
+    pets:{
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Patient"
+        }
+    }
 });
 
 module.exports = mongoose.model("Owner", ownerSchema); 

@@ -58,14 +58,20 @@ router.post("/", function(req, res){
     });
 });
 
-//SHOW
-router.get("/:id", function(req, res){
-    Patient.findById(req.params.id).populate("owners").exec(function(err, foundPatient){
+// //SHOW
+router.get("/:id", function(req,res){
+    Patient.findById(req.params.id, function(err, foundPatient){
         if(err || !foundPatient){
             console.log(err);
-        } else {
-            res.render("patients/show", {pet:foundPatient});
+            res.redirect("/");
         }
+        Owner.find().where('_id').equals(foundPatient.owner.id).exec(function(err, owner){
+            if(err || !owner){
+                console.log(err);
+            }
+            console.log(foundPatient.owner.id);
+            res.render("patients/show", {pet:foundPatient, owner: owner});
+        });
     });
 });
 

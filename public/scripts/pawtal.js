@@ -9,8 +9,12 @@ rowUrls.forEach(function(row){
     });
 });
 
-var options = {
-	data: ["blue", "green", "pink", "red", "yellow"]
-};
+// var options = {
+// 	url: function(phrase) {
+// 		return "api/countrySearch.php?phrase=" + phrase + "&format=json";
+// 	},
 
-$("#basics").easyAutocomplete(options);
+// 	getValue: "firstName"
+// };
+
+// $("#ownersDb").easyAutocomplete(options);
