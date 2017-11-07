@@ -15,6 +15,14 @@ var options = {
 		return "/allOwnerNames";
 	},
     getValue: "name",
+
+    // template: {
+    //     type: "custom",
+    //     method: function(value, item) {
+    //         return item.firstName + " " + item.lastName + " " + item.phone;
+    //     }
+    // },
+
     list: {
         onSelectItemEvent: function() {
             var ownerObject = $("#ownersDb").getSelectedItemData().owner;

@@ -33,7 +33,7 @@ app.get("/allOwnerNames", function(req, res){
         var modifiedOwners = [];
         allOwners.forEach(function(owner){
             var mod = {
-                "name" : owner.firstName + " " + owner.lastName,
+                "name" : owner.firstName + " " + owner.lastName + " || " + owner.phone,
                 "owner" : owner
             };
             modifiedOwners.push(mod);
