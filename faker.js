@@ -21,7 +21,8 @@ var randomOwner = function() {
             secondAddress: faker.address.secondaryAddress(),            
             city: faker.address.city(),
             state: faker.address.stateAbbr(),
-            zipCode: faker.address.zipCode()
+            zipCode: faker.address.zipCode(),
+            country: faker.address.country()
         },
         balance: faker.finance.amount()
     }

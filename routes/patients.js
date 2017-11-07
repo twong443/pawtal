@@ -29,6 +29,7 @@ router.get("/new", function(req, res){
 
 //CREATE - create new patient
 router.post("/", function(req, res){
+    //patient properties
     var name = req.body.name;
     var dob = req.body.dob;
     var gender = req.body.gender;
@@ -37,12 +38,42 @@ router.post("/", function(req, res){
     var color = req.body.color;
     var weight = req.body.weight;
     var avatar = req.body.avatar;
-    var parseOwner = JSON.parse(req.body.owner);
-    var owner = {
-        id: parseOwner._id,
-        firstName: parseOwner.firstName,
-        lastName: parseOwner.lastName
+    //existing owner properties
+    var owner = null, parseOwner = { };
+    if(req.body.owner.length > 0){
+        parseOwner = JSON.parse(req.body.owner);
+        owner = {
+            id: parseOwner._id,
+            firstName: parseOwner.firstName,
+            lastName: parseOwner.lastName
+        };
     }
+    //new owner properties
+    var firstName = req.body.firstName,
+        lastName = req.body.lastName,
+        phone = req.body.phone,
+        email = req.body.email,        
+        streetAddress = req.body.streetAddress,
+        secondAddress = req.body.secondAddress,
+        city = req.body.city,
+        state = req.body.state,
+        zipCode = req.body.zipCode,
+        country = req.body.country;
+
+    var newOwner = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        address: {
+            street: streetAddress,
+            secondAddress: secondAddress,
+            city: city,
+            state: state,
+            zipCode: zipCode,
+            country: country
+        }
+    };
     var newPatient = {
         name: name,
         dob: dob,
@@ -54,18 +85,36 @@ router.post("/", function(req, res){
         avatar: avatar,
         owner: owner
     }
-    Owner.create(newOwner, function(err){
-        if(err){
-            console.log(err);
-            res.redirect("back");
-        } Patient.create(newPatient, function(err){
+    if(owner != null) {
+        console.log("owner exists");
+        Patient.create(newPatient, function(err){
             if(err){
                 console.log(err);
             } else {
                 res.redirect("/patients");
             }
         });
-    });
+    } else {
+        Owner.create(newOwner, function(err, owner){
+            if(err){
+                console.log(err);
+                res.redirect("back");
+            } 
+            // console.log(owner);
+            newPatient.owner = {
+                id: owner._id,
+                firstName: owner.firstName,
+                lastName: owner.lastName
+            };
+            Patient.create(newPatient, function(err){
+                if(err){
+                    console.log(err);
+                } else {
+                    res.redirect("/patients");
+                }
+            });
+        });
+    }
 });
 
 //SHOW

@@ -11,7 +11,8 @@ var ownerSchema = new mongoose.Schema({
         secondAddress: String,
         city: String,
         state: String,
-        zipCode: String
+        zipCode: String,
+        country: String
     },
     balance: String
 });
