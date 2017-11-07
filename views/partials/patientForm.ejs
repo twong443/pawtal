@@ -1,0 +1,58 @@
+<div id="patientForm" style="display:none">
+    <div class="three fields">
+        <div class="field">
+            <label for="name">Pet Name</label>
+            <input type="text" name="name" placeholder="Name">
+        </div>
+        <div class="field">
+            <label for="dob">Date of Birth</label>
+            <input type="date" name="dob" placeholder="Date of Birth">
+        </div>
+        <div class="field">
+            <label>Gender</label>
+            <select name="gender" class="ui search dropdown">
+                <option value="">Gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label>Type</label>
+            <select name="type" class="ui search dropdown">
+                <option value="">Type</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+            </select>
+        </div>
+        <div class="field">
+            <label for="Breed">Breed</label>
+            <input type="text" name="breed" placeholder="Breed">
+        </div>
+        <div class="field">
+            <label for="Color">Color</label>
+            <input type="text" name="color" placeholder="Color">
+        </div>
+    </div>
+
+    <div class="three fields">
+        <div class="field">
+            <label for="weight">Weight</label>
+            <div class="ui right labeled input">
+                <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+                <div class="ui bsaic label">lbs</div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="avatar">Avatar</label>
+            <input type="file" name="avatar" placeholder="Pet Avatar">
+        </div>
+    </div>
+    <div class="field">
+        <div id="reviewBtn" class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
+            Review
+        </div>
+    </div>
+</div>

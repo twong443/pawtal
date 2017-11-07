@@ -54,12 +54,17 @@ router.post("/", function(req, res){
         avatar: avatar,
         owner: owner
     }
-    Patient.create(newPatient, function(err){
+    Owner.create(newOwner, function(err){
         if(err){
             console.log(err);
-        } else {
-            res.redirect("/patients");
-        }
+            res.redirect("back");
+        } Patient.create(newPatient, function(err){
+            if(err){
+                console.log(err);
+            } else {
+                res.redirect("/patients");
+            }
+        });
     });
 });
 

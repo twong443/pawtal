@@ -1,78 +1,35 @@
 <% include ../partials/header %>
 
-<div class="ui main container">
-    <form class= "ui form" action="/patients" method="POST">
-        <div class="three fields">
-            <div class="field">
-                <label for="name">Pet Name</label>
-                <input type="text" name="name" placeholder="Name">
-            </div>
-            <div class="field">
-                <label for="dob">Date of Birth</label>
-                <input type="date" name="dob" placeholder="Date of Birth">
-            </div>
-            <div class="field">
-                <label>Gender</label>
-                <select name="gender" class="ui search dropdown">
-                    <option value="">Gender</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>                
-                </select>
-            </div>
-        </div>
-        <div class="three fields">
-            <div class="field">
-                <label>Type</label>
-                <select name="type" class="ui search dropdown">
-                    <option value="">Type</option>
-                    <option value="Dog">Dog</option>
-                    <option value="Cat">Cat</option>                
-                </select>
-            </div>
-            <div class="field">
-                <label for="Breed">Breed</label>
-                <input type="text" name="breed" placeholder="Breed">
-            </div>
-            <div class="field">
-                <label for="Color">Color</label>
-                <input type="text" name="color" placeholder="Color">
-            </div>
-        </div>
-        
-        <div class="three fields">
-            <div class="field">
-                <label for="weight">Weight</label>
-                <div class="ui right labeled input">
-                    <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
-                    <div class="ui bsaic label">lbs</div>
+    <div class="ui main container">
+        <div class="ui three ordered steps">
+            <div id="ownerStep" class="step">
+                <div class="content">
+                    <div class="title">Add Owner</div>
                 </div>
             </div>
-            <div class="field">
-                <label for="avatar">Avatar</label>
-                <input type="file" name="avatar" placeholder="Pet Avatar">
+            <div id="petStep" class="step">
+                <div class="content">
+                    <div class="title">Add Pet</div>
+                </div>
             </div>
-            <div class="field">
-                <label for="owner">Owner</label>
-                <input id="ownersDb"  placeholder="Owner">
-                <input id="data-holder" type="hidden" name="owner">           
-            </div>
-            <div class="inline field">
-                <div class="ui accordion field">
-                    <div class="ui slider checkbox title">
-                        <input type="checkbox" tabindex="0" class="hidden">
-                        <label>Add New Owner</label>
-                    </div>
-                    <div class="content field"> 
-                        <label for="owner">First Name</label>
-                        <input type="text" placeholder="First Name">
-                    </div>
+            <div id="confirmStep" class="disabled step">
+                <div class="content">
+                    <div class="title">Confirm Details</div>
                 </div>
             </div>
         </div>
-        <div class="field">
-            <button class="ui button">Submit</button>
+        <div id="newOrExisitngBtns" class="ui buttons">
+            <button id="addExistingBtn" class="ui button">Existing Owner</button>
+            <div class="or"></div>
+            <button id="addNewBtn" class="ui button">Add New Owner</button>
         </div>
-    </form>
-</div>
+        <form class="ui form" action="/patients" method="POST">
+            <% include ../partials/ownerForms %>
+            <% include ../partials/patientForm %>
+            <div id="confirmPage" style="display:none">
+                <h2>THIS IS THE CONFIRMATION SECTION</h2>
+            </div>
+        </form>
+    </div>
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>

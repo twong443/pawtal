@@ -38,3 +38,7 @@ input[type="button"]:hover:not(.active) {
     float: right;
     margin-bottom: 20px;
 }
+
+.showForm {
+    display: inline;
+}

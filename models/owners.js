@@ -6,7 +6,13 @@ var ownerSchema = new mongoose.Schema({
     username: String,
     phone: String,
     email: String,
-    address: String,
+    address: {
+        street: String,
+        secondAddress: String,
+        city: String,
+        state: String,
+        zipCode: String
+    },
     balance: String
 });
 

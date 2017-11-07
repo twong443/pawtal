@@ -16,7 +16,13 @@ var randomOwner = function() {
         username: faker.internet.userName(),
         phone: faker.phone.phoneNumberFormat(),
         email: faker.internet.email(),
-        address: faker.address.streetAddress() + ", " + faker.address.city() + ", " + faker.address.stateAbbr() + " " + faker.address.zipCode(),
+        address: {
+            street: faker.address.streetAddress(),
+            secondAddress: faker.address.secondaryAddress(),            
+            city: faker.address.city(),
+            state: faker.address.stateAbbr(),
+            zipCode: faker.address.zipCode()
+        },
         balance: faker.finance.amount()
     }
 }
