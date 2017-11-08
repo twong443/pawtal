@@ -129,7 +129,6 @@ router.get("/:id", function(req,res){
             if(err || !foundOwner){
                 console.log(err);
             }
-            console.log(foundOwner);
             res.render("patients/show", {pet:foundPatient, owner: foundOwner});
         });
     });

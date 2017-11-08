@@ -18,11 +18,14 @@
                 </div>
             </div>
         </div>
-        <div id="newOrExisitngBtns" class="ui buttons">
-            <button id="addExistingBtn" class="ui button">Existing Owner</button>
-            <div class="or"></div>
-            <button id="addNewBtn" class="ui button">Add New Owner</button>
+        <div id="buttonsContainer">
+            <div id="newOrExisitngBtns" class="ui buttons">
+                <button id="addExistingBtn" class="ui button">Existing Owner</button>
+                <div class="or"></div>
+                <button id="addNewBtn" class="ui button">Add New Owner</button>
+            </div>
         </div>
+        
         <form class="ui form" action="/patients" method="POST">
             <% include ../partials/ownerForms %>
             <% include ../partials/patientForm %>

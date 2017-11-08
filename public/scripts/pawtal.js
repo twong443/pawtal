@@ -1,6 +1,5 @@
 //make rows into links
 var rowUrls = document.querySelectorAll(".rowUrl");
-
 rowUrls.forEach(function(row){
     var petId = row.attributes[1].textContent;
     row.addEventListener("click", function(){
@@ -42,6 +41,7 @@ var breedOptions = {
 };
 
 $("#breedInput").easyAutocomplete(breedOptions);
+$('div.easy-autocomplete').removeAttr('style');
 
 // Semantic UI Dropdown
 $("select.dropdown").dropdown();

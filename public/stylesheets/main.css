@@ -10,6 +10,10 @@
     padding: 15px;
 }
 
+#buttonsContainer {
+    text-align: center;
+}
+
 /* create pagination buttons */
 input[type="button"] {
     font-family: Lato, sans-serif;
@@ -37,8 +41,4 @@ input[type="button"]:hover:not(.active) {
 #buttons {
     float: right;
     margin-bottom: 20px;
-}
-
-.showForm {
-    display: inline;
 }
