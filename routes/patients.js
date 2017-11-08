@@ -42,7 +42,7 @@ router.post("/", function(req, res){
     //existing owner properties
     var owner = null, parseOwner = { };
     if(req.body.owner.length > 0){
-        parseOwner = JSON.parse(req.body.owner);
+        parseOwner = req.body.owner;
         owner = {
             id: parseOwner._id,
             firstName: parseOwner.firstName,

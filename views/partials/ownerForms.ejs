@@ -11,10 +11,10 @@
             <label>Name</label>
             <div class="two fields">
                 <div class="field">
-                    <input type="text" name="firstName" placeholder="First Name">
+                    <input class="ownerInput" id="firstNameInput" type="text" name="firstName" placeholder="First Name">
                 </div>
                 <div class="field">
-                    <input type="text" name="lastName" placeholder="Last Name">
+                    <input class="ownerInput" id="lastNameInput" type="text" name="lastName" placeholder="Last Name">
                 </div>
             </div>
         </div>
@@ -22,21 +22,21 @@
             <label>Address</label>
             <div class="fields">
                 <div class="twelve wide field">
-                    <input type="text" name="streetAddress" placeholder="Street Address">
+                    <input class="ownerInput" id="streetAddressInput" type="text" name="streetAddress" placeholder="Street Address">
                 </div>
                 <div class="four wide field">
-                    <input type="text" name="secondAddress" placeholder="Apt #">
+                    <input class="ownerInput" id="secondAddressInput" type="text" name="secondAddress" placeholder="Apt #">
                 </div>
             </div>
         </div>
         <div class="three fields">
             <div class="field">
                 <label for="city">City</label>
-                <input type="text" name="city" placeholder="City">
+                <input class="ownerInput" id="cityInput" type="text" name="city" placeholder="City">
             </div>
             <div class="field">
                 <label>State</label>
-                <select name="state" class="ui search dropdown">
+                <select class="ownerInput" id="stateInput" name="state" class="ui search dropdown">
                     <option value="">State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -93,7 +93,7 @@
             </div>
             <div class="field">
                 <label>Country</label>
-                <select name="country" class="ui search dropdown">
+                <select class="ownerInput" id="countryInput" name="country" class="ui search dropdown">
                     <option value="">Select Country</option>
                     <option value="AF">Afghanistan</option>
                     <option value="AX">Åland Islands</option>
@@ -350,11 +350,11 @@
         <div class="two fields">
             <div class="field">
                 <label>Phone</label>
-                <input type="tel" name="phone" placeholder="Phone #">
+                <input class="ownerInput" id="phoneInput" type="tel" name="phone" placeholder="Phone #">
             </div>
             <div class="field">
                 <label>Email</label>
-                <input type="email" name="email" placeholder="jane@doe.com">
+                <input class="ownerInput" id="emailInput" type="email" name="email" placeholder="jane@doe.com">
             </div>
         </div>
     </div>

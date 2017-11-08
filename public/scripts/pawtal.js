@@ -8,6 +8,9 @@ rowUrls.forEach(function(row){
     });
 });
 
+// make table sortable;
+$('table').tablesort();
+
 // Autocomplete Owner Names
 var ownerOptions = {
 	url: function(phrase) {
@@ -54,11 +57,14 @@ var addExistingBtn = document.querySelector("#addExistingBtn");
 var addNewBtn = document.querySelector("#addNewBtn");
 var addPetBtn = document.querySelector("#addPetBtn");
 var newOrExistngBtns = document.querySelector("#newOrExisitngBtns");
+var reviewBtn = document.querySelector("#reviewBtn");
 var ownerStep = document.querySelector("#ownerStep");
 var confirmStep = document.querySelector("#confirmStep");
 var petStep = document.querySelector("#petStep");
 var confirmPage = document.querySelector("#confirmPage");
 var confirmStep = document.querySelector("#confirmStep");
+var ownerInput = document.querySelectorAll(".ownerInput");
+var ownerDisplay = document.querySelector("#ownerDisplay");
 
 addExistingBtn.addEventListener("click", function(){
     existingOwnerForm.style.display = "inline";
@@ -85,9 +91,45 @@ addPetBtn.addEventListener("click", function(){
     patientForm.style.display = "block";    
 });
 
+
 reviewBtn.addEventListener("click", function(){
+    var ownerData = [];
+    var ownerDisplayArr = [];
     patientForm.style.display = "none";    
     confirmPage.style.display = "block";
     petStep.classList.add("completed");
-    confirmStep.classList.remove("disabled");    
+    confirmStep.classList.remove("disabled");
+    ownerInput.forEach(function(data){
+        ownerData.push(data.value);
+    });
+    for(var i=0; i < ownerData.length; i++){
+        ownerDisplayArr.push('<li><span>' + ownerData[i] + '</span></li>');
+    }
+    ownerDisplay.innerHTML = ownerDisplayArr.join("");
+});
+
+//Input Values to View on Confirmation Page
+
+$('#petNameInput').change(function() {
+    $('#petNameDisplay').text($(this).val());
+});
+$('#petDobInput').change(function() {
+    $('#petDobDisplay').text($(this).val());
+});
+$('#breedInput').change(function() {
+    $('#breedDisplay').text($(this).val());
+});
+$('#colorInput').change(function() {
+    $('#colorDisplay').text($(this).val());
+});
+$('#weightInput').change(function() {
+    $('#weightDisplay').text($(this).val());
+});
+$("#petGenderInput").change(function() {
+    var petGender = $('#petGenderInput option:selected').text();
+    $('#petGenderDisplay').html(petGender);
+});
+$("#typeInput").change(function() {
+    var type = $('#typeInput option:selected').text();
+    $('#typeDisplay').html(type);
 });
