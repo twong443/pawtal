@@ -10,7 +10,7 @@ rowUrls.forEach(function(row){
 });
 
 // Autocomplete Owner Names
-var options = {
+var ownerOptions = {
 	url: function(phrase) {
 		return "/allOwnerNames";
 	},
@@ -18,7 +18,7 @@ var options = {
     list: {
         onSelectItemEvent: function() {
             var ownerObject = $("#ownersDb").getSelectedItemData().owner;
-            $("#data-holder").val(JSON.stringify(ownerObject)).trigger("change");
+            $("#owner-data").val(JSON.stringify(ownerObject)).trigger("change");
         },
         match: {
             enabled: true
@@ -26,7 +26,22 @@ var options = {
     }
 };
 
-$("#ownersDb").easyAutocomplete(options);
+$("#ownersDb").easyAutocomplete(ownerOptions);
+
+// Dog Breeds from API
+var breedOptions = {
+	url: function(phrase) {
+		return "/alldogbreeds";
+	},
+    getValue: "name",
+    list: {
+        match: {
+            enabled: true
+        }
+    }
+};
+
+$("#breedInput").easyAutocomplete(breedOptions);
 
 // Semantic UI Dropdown
 $("select.dropdown").dropdown();

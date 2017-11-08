@@ -1,4 +1,7 @@
 var faker   = require("faker"),
+    request = require("request"),
+    sr = require("sync-request"),   
+    petNames = require("dog-names"), 
     Patient = require("./models/patients"),
     Owner   = require("./models/owners");
 var moment = require("moment");
@@ -6,7 +9,7 @@ var moment = require("moment");
 var sex = ['Female', 'Male'],
     species = ['Dog', 'Cat'],
     colors = ['Brown', 'Black', 'White', 'Grey', 'Red', 'Tan', 'Multicolored'],
-    dogBreed = ['Siberian Husky', 'German Shepherd', 'Corgi', 'Mastiff', 'Poodle', 'Pomeranian', 'Golden Retriever', 'Daschund', 'Pitbull', 'Rottweiler', 'Great Dane', 'Labrador', 'Beagle'],
+    dogBreed = getBreeds(),
     catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'];
 
 var randomOwner = function() {
@@ -33,19 +36,19 @@ var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
     var formattedLastVisited = moment(faker.date.past()).format('YYYY-MM-DD');
     var patientType = species[Math.floor(Math.random()*species.length)];
     var patientBreed = "";
+    var avatar = getAvatar();
     var petOwner = {
         id: ownerId,
         firstName: ownerFirstName,
         lastName: ownerLastName
     }
-
     if(patientType === 'Dog'){
         patientBreed = dogBreed[Math.floor(Math.random()*dogBreed.length)]
     } else {
         patientBreed = catBreed[Math.floor(Math.random()*catBreed.length)]
     }
     return {
-        name: faker.address.city(),
+        name: petNames.allRandom(),
         dob: formattedDob,
         gender: sex[Math.floor(Math.random()*sex.length)],
         type: patientType,
@@ -53,8 +56,21 @@ var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
         color: colors[Math.floor(Math.random()*colors.length)],
         weight: faker.random.number({min:5, max:300}),
         lastVisited: formattedLastVisited,
-        owner: petOwner
+        owner: petOwner,
+        avatar: avatar
     }
+}
+
+function getBreeds(){
+    var res = sr('GET', "https://dog.ceo/api/breeds/list");
+    var breed = JSON.parse(res.body);
+    return breed.message;
+}
+
+function getAvatar(){
+    var res = sr('GET', "https://dog.ceo/api/breeds/image/random");
+    var avatar = JSON.parse(res.body);
+    return avatar.message;
 }
 
 function seedDB(){

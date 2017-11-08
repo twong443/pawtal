@@ -19,7 +19,7 @@
         <tbody>
             <% pets.forEach(function(pet){ %>
             <tr class="rowUrl" data-id="<%= pet._id %>">     
-                <td class="collapsing"><img class="ui avatar image" src="/brick.jpg" alt=""><%= pet.name %></td>
+                <td class="collapsing"><img class="ui avatar image" src="<%= pet.avatar %>" alt=""><%= pet.name %></td>
                 <td><%= pet.type %></td>
                 <td><%= pet.breed %></td>
                 <td><%= pet.color %></td>

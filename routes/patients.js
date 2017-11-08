@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var request = require("request");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 
@@ -30,14 +31,14 @@ router.get("/new", function(req, res){
 //CREATE - create new patient
 router.post("/", function(req, res){
     //patient properties
-    var name = req.body.name;
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var type = req.body.type;
-    var breed = req.body.breed;
-    var color = req.body.color;
-    var weight = req.body.weight;
-    var avatar = req.body.avatar;
+    var name = req.body.name,
+        dob = req.body.dob,
+        gender = req.body.gender,
+        type = req.body.type,
+        breed = req.body.breed,
+        color = req.body.color,
+        weight = req.body.weight,
+        avatar = req.body.avatar;
     //existing owner properties
     var owner = null, parseOwner = { };
     if(req.body.owner.length > 0){

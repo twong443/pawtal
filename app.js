@@ -2,6 +2,7 @@ var express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
+    request         = require("request");
     Patient         = require("./models/patients"),
     Owner           = require("./models/owners"),
     Visit           = require("./models/visits"),
@@ -39,6 +40,19 @@ app.get("/allOwnerNames", function(req, res){
             modifiedOwners.push(mod);
         });
         res.send(modifiedOwners);
+    });
+});
+
+app.get("/alldogbreeds", function(req, res){
+    request("https://dog.ceo/api/breeds/list", function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            var breeds = [];
+            info.message.forEach(function(breed){
+                breeds.push({name: breed});
+            });
+            res.send(breeds);
+        }
     });
 });
 
