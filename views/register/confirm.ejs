@@ -19,23 +19,28 @@
         </div>
     </div>
     <form class="ui form" action="/patients" method="POST">
-        <%= register.owner.firstName %>
-        <%= register.owner.lastName %>
-        <%= register.owner.address.street %>
-        <%= register.owner.address.secondAddress %>
-        <%= register.owner.address.city %>
-        <%= register.owner.address.state %>
-        <%= register.owner.address.zipCode %>
-        <%= register.owner.address.country %>
-        <%= register.patient.name %>
-        <%= register.patient.dob %>
-        <%= register.patient.gender %>
-        <%= register.patient.type %>
-        <%= register.patient.breed %>
-        <button class="ui right floated right labeled icon button">
-            <i class="right arrow icon"></i>
+        <div class="ui stackable two column grid container">
+            <div class="column">
+                <h3>OWNER</h3>
+                <p><strong>Name: </strong><%= register.owner.firstName %> <%= register.owner.lastName %></p>
+                <p><strong>Address: </strong><%= register.owner.address.street %> <%= register.owner.address.secondAddress %><br><%= register.owner.address.city %>, <%= register.owner.address.state %> <%= register.owner.address.zipCode %><br><%= register.owner.address.country %></p>
+                <p><strong>Email: </strong><%= register.owner.email %></p>
+                <p><strong>Phone: </strong><%= register.owner.phone %></p>
+            </div>
+            <div class="column">
+                <h3>PET</h3>
+                <p><strong>Name: </strong><%= register.patient.name %></p>
+                <p><strong>Date of Birth: </strong><%= register.patient.dob %></p>
+                <p><strong>Gender: </strong><%= register.patient.gender %></p>                
+                <p><strong>Type: </strong><%= register.patient.type %></p>
+                <p><strong>Breed: </strong><%= register.patient.breed %></p>
+                <p><strong>Color: </strong><%= register.patient.color %></p>
+            </div>
+        </div>
+        <button class="ui right floated green button">
             Submit
         </button>
+        <a class="ui right floated button" href="/patients">Cancel</a>
     </form>
 </div>
 

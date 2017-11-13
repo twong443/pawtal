@@ -49,37 +49,18 @@ $('div.easy-autocomplete').removeAttr('style');
 // Semantic UI Dropdown
 $("select.dropdown").dropdown();
 
-// Show/Hide Forms
-// var patientForm = document.querySelector("#patientForm");
-var existingOwnerForm = document.querySelector("#existingOwnerForm");
-var newOwnerForm = document.querySelector("#newOwnerForm");
-var addExistingBtn = document.querySelector("#addExistingBtn");
-var addNewBtn = document.querySelector("#addNewBtn");
-// var addPetBtn = document.querySelector("#addPetBtn");
-// var newOrExistngBtns = document.querySelector("#newOrExisitngBtns");
-// var reviewBtn = document.querySelector("#reviewBtn");
-// var ownerStep = document.querySelector("#ownerStep");
-// var confirmStep = document.querySelector("#confirmStep");
-// var petStep = document.querySelector("#petStep");
-// var confirmPage = document.querySelector("#confirmPage");
-// var confirmStep = document.querySelector("#confirmStep");
-// var ownerInput = document.querySelectorAll(".ownerInput");
-// var ownerDisplay = document.querySelector("#ownerDisplay");
-// var petInput = document.querySelectorAll(".petInput");
-// var petDisplay = document.querySelector("#petDisplay");
+
 
 addExistingBtn.addEventListener("click", function(){
     existingOwnerForm.style.display = "inline";
-    newOwnerForm.style.display = "none";
-    // addPetBtn.style.display = "inline";    
+    newOwnerForm.style.display = "none";  
     addExistingBtn.classList.add("positive");
     addNewBtn.classList.remove("positive");      
 });
 
 addNewBtn.addEventListener("click", function(){
     newOwnerForm.style.display = "block";
-    existingOwnerForm.style.display = "none";
-    // addPetBtn.style.display = "inline";    
+    existingOwnerForm.style.display = "none";  
     addNewBtn.classList.add("positive");
     addExistingBtn.classList.remove("positive");      
 });
