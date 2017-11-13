@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <form class="ui form" action="/patients" method="POST">
+        <%= register.owner.firstName %>
+        <%= register.owner.lastName %>
+        <%= register.owner.address.street %>
+        <%= register.owner.address.secondAddress %>
+        <%= register.owner.address.city %>
+        <%= register.owner.address.state %>
+        <%= register.owner.address.zipCode %>
+        <%= register.owner.address.country %>
+        <%= register.patient.name %>
+        <%= register.patient.dob %>
+        <%= register.patient.gender %>
+        <%= register.patient.type %>
+        <%= register.patient.breed %>
+        <button class="ui right floated right labeled icon button">
+            <i class="right arrow icon"></i>
+            Submit
+        </button>
+    </form>
+</div>
+
+<% include ../partials/footer %>
