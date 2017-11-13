@@ -1,6 +1,23 @@
 <% include ../partials/header %>
 
 <div class="ui main container">
+    <div class="ui three ordered steps">
+        <div id="ownerStep" class="completed step">
+            <div class="content">
+                <div class="title">Add Owner</div>
+            </div>
+        </div>
+        <div id="petStep" class="completed step">
+            <div class="content">
+                <div class="title">Add Pet</div>
+            </div>
+        </div>
+        <div id="confirmStep" class="active step">
+            <div class="content">
+                <div class="title">Confirm Details</div>
+            </div>
+        </div>
+    </div>
     <form class="ui form" action="/patients" method="POST">
         <%= register.owner.firstName %>
         <%= register.owner.lastName %>

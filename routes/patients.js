@@ -112,7 +112,7 @@ router.post("/register/confirm", function(req, res){
 //CREATE - create new patient
 router.post("/", function(req, res){
     if(register.owner._id) {
-        console.log("owner exists");
+        // console.log("owner exists");
         register.patient.owner = {
             id: register.owner._id,
             firstName: register.owner.firstName,
