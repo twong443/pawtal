@@ -49,33 +49,38 @@ router.get("/register/confirm", function(req,res){
 });
 
 router.post("/register/patient", function(req, res){
-    //new owner properties
-    var firstName = req.body.firstName,
-        lastName = req.body.lastName,
-        phone = req.body.phone,
-        email = req.body.email,        
-        streetAddress = req.body.streetAddress,
-        secondAddress = req.body.secondAddress,
-        city = req.body.city,
-        state = req.body.state,
-        zipCode = req.body.zipCode,
-        country = req.body.country;
+    // existing owner properties
+    if(req.body.owner.length > 0){
+        register.owner = JSON.parse(req.body.owner);
+    } else {
+        //new owner properties
+        var firstName = req.body.firstName,
+            lastName = req.body.lastName,
+            phone = req.body.phone,
+            email = req.body.email,        
+            streetAddress = req.body.streetAddress,
+            secondAddress = req.body.secondAddress,
+            city = req.body.city,
+            state = req.body.state,
+            zipCode = req.body.zipCode,
+            country = req.body.country;
 
-    var newOwner = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        address: {
-            street: streetAddress,
-            secondAddress: secondAddress,
-            city: city,
-            state: state,
-            zipCode: zipCode,
-            country: country
-        }
-    };
-    register.owner = newOwner;
+        var newOwner = {
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+            address: {
+                street: streetAddress,
+                secondAddress: secondAddress,
+                city: city,
+                state: state,
+                zipCode: zipCode,
+                country: country
+            }
+        };
+        register.owner = newOwner;
+    }
     res.redirect("/patients/register/patient");
 });
 
@@ -100,24 +105,19 @@ router.post("/register/confirm", function(req, res){
         avatar: avatar,
         owner: register.owner
     }
-    register.patient = newPatient;   
+    register.patient = newPatient;  
     res.redirect("/patients/register/confirm");
 });
 
 //CREATE - create new patient
 router.post("/", function(req, res){
-    // //existing owner properties
-    var owner = null, parseOwner = { };
-    // if(req.body.owner.length > 0){
-    //     parseOwner = req.body.owner;
-    //     owner = {
-    //         id: parseOwner._id,
-    //         firstName: parseOwner.firstName,
-    //         lastName: parseOwner.lastName
-    //     };
-    // }
-    if(owner != null) {
+    if(register.owner._id) {
         console.log("owner exists");
+        register.patient.owner = {
+            id: register.owner._id,
+            firstName: register.owner.firstName,
+            lastName: register.owner.lastName
+        };
         Patient.create(register.patient, function(err){
             if(err){
                 console.log(err);
@@ -134,7 +134,6 @@ router.post("/", function(req, res){
                 register.reset();   
                 res.redirect("back");
             } 
-            // console.log(owner);
             register.patient.owner = {
                 id: owner._id,
                 firstName: owner.firstName,
