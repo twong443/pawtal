@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var request = require("request");
+// var request = require("request");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var register = require("./registration");
@@ -18,18 +18,7 @@ router.get("/", function(req, res){
     });
 });
 
-//NEW ROUTE - add new patient
-// router.get("/new", function(req, res){
-//     Owner.find({}, function(err, allOwners){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             res.render("patients/new", {owners: allOwners});
-//         }
-//     });    
-// });
-
-// NEW
+// NEW ROUTE
 router.get("/register", function(req, res){
     Owner.find({}, function(err, allOwners){
         if(err){
@@ -110,7 +99,7 @@ router.post("/register/confirm", function(req, res){
 });
 
 //CREATE - create new patient
-router.post("/", function(req, res){
+router.post("/", function(req, res){   
     if(register.owner._id) {
         // console.log("owner exists");
         register.patient.owner = {
@@ -123,8 +112,7 @@ router.post("/", function(req, res){
                 console.log(err);
                 register.reset();
             } else {
-                register.reset();   
-                res.redirect("/patients");     
+                register.addAppt(req, res);    
             }
         });
     } else {
@@ -144,8 +132,7 @@ router.post("/", function(req, res){
                     console.log(err);
                     register.reset();   
                 } else {
-                    register.reset();
-                    res.redirect("/patients");
+                    register.addAppt(req, res);    
                 }
             });
         });
@@ -167,5 +154,9 @@ router.get("/:id", function(req,res){
         });
     });
 });
+
+//UPDATE
+
+//DESTROY
 
 module.exports = router;

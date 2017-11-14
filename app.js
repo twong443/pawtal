@@ -9,6 +9,7 @@ var express     	= require("express"),
     seedDB          = require("./faker");
 
 var patientRoutes   = require("./routes/patients");
+var visitRoutes   = require("./routes/visits");
 
 var port = process.env.PORT || "8080"
 
@@ -57,6 +58,7 @@ app.get("/alldogbreeds", function(req, res){
 });
 
 app.use("/patients", patientRoutes);
+app.use(visitRoutes);
 
 app.listen(port, process.env.IP, function(){
     console.log("Pawtal Server Has Started");

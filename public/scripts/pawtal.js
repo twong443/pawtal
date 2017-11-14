@@ -10,6 +10,8 @@ rowUrls.forEach(function(row){
 
 // make table sortable;
 $('table').tablesort();
+// Semantic UI Dropdown
+$("select.dropdown").dropdown();
 
 // Autocomplete Owner Names
 var ownerOptions = {
@@ -46,11 +48,7 @@ var breedOptions = {
 $("#breedInput").easyAutocomplete(breedOptions);
 $('div.easy-autocomplete').removeAttr('style');
 
-// Semantic UI Dropdown
-$("select.dropdown").dropdown();
-
-
-
+// Show/Hide Existing & New Owner Forms
 addExistingBtn.addEventListener("click", function(){
     existingOwnerForm.style.display = "inline";
     newOwnerForm.style.display = "none";  
@@ -64,66 +62,3 @@ addNewBtn.addEventListener("click", function(){
     addNewBtn.classList.add("positive");
     addExistingBtn.classList.remove("positive");      
 });
-
-// addPetBtn.addEventListener("click", function(){
-//     ownerStep.classList.add("completed");
-//     newOwnerForm.style.display = "none";
-//     existingOwnerForm.style.display = "none";
-//     newOrExistngBtns.style.display = "none";
-//     addPetBtn.style.display = "none";
-//     patientForm.style.display = "block";    
-// });
-
-
-// reviewBtn.addEventListener("click", function(){
-//     patientForm.style.display = "none";    
-//     confirmPage.style.display = "block";
-//     petStep.classList.add("completed");
-//     confirmStep.classList.remove("disabled");
-//     //display owner input
-//     var ownerData = [];
-//     var ownerDisplayArr = [];
-//     ownerInput.forEach(function(data){
-//         ownerData.push(data.value);
-//     });
-//     for(var i=0; i < ownerData.length; i++){
-//         ownerDisplayArr.push('<li><span>' + ownerData[i] + '</span></li>');
-//     }
-//     ownerDisplay.innerHTML = ownerDisplayArr.join("");
-//     //display patient input
-//     var patientData = [];
-//     var patientDisplayArr = [];
-//     petInput.forEach(function(data){
-//         patientData.push(data.value);
-//     });
-//     for(var i=0; i < patientData.length; i++){
-//         patientDisplayArr.push('<li><span>' + patientData[i] + '</span></li>');
-//     }
-//     petDisplay.innerHTML = patientDisplayArr.join("");
-// });
-
-//Input Values to View on Confirmation Page
-
-// $('#petNameInput').change(function() {
-//     $('#petNameDisplay').text($(this).val());
-// });
-// $('#petDobInput').change(function() {
-//     $('#petDobDisplay').text($(this).val());
-// });
-// $('#breedInput').change(function() {
-//     $('#breedDisplay').text($(this).val());
-// });
-// $('#colorInput').change(function() {
-//     $('#colorDisplay').text($(this).val());
-// });
-// $('#weightInput').change(function() {
-//     $('#weightDisplay').text($(this).val());
-// });
-// $("#petGenderInput").change(function() {
-//     var petGender = $('#petGenderInput option:selected').text();
-//     $('#petGenderDisplay').html(petGender);
-// });
-// $("#typeInput").change(function() {
-//     var type = $('#typeInput option:selected').text();
-//     $('#typeDisplay').html(type);
-// });

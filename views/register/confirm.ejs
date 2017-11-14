@@ -37,10 +37,19 @@
                 <p><strong>Color: </strong><%= register.patient.color %></p>
             </div>
         </div>
-        <button class="ui right floated green button">
-            Submit
-        </button>
-        <a class="ui right floated button" href="/patients">Cancel</a>
+        <div class="field">
+            <div id="apptCheckbox" class="ui checkbox">
+                <input type="checkbox" name="appointment">
+                <label for="appointment">Add Appointment</label>
+            </div>
+        </div>
+        
+        <div class="field">
+            <button class="ui right floated green button">
+                Submit
+            </button>
+            <a class="ui right floated button" href="/patients">Cancel</a>
+        </div>
     </form>
 </div>
 

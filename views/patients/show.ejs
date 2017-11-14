@@ -1,38 +1,28 @@
 <% include ../partials/header %>
 
 <div class="ui main container">
-    
-    <div class="ui card">
-        <div class="image">
-            <img src="<%= pet.avatar %>">
+    <div class="content">
+        <h2><a><%= owner.firstName %> <%= owner.lastName %></a></h2>
+        <div class="description">
+                <p><%= owner.address.street %> <%= owner.address.secondAddress %>
+                <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
+                <br><%= owner.address.country %></p>
+            <p><%= owner.phone %></p>
+            <p><%= owner.email %></p>
+            <p><strong>Total Balance: </strong>$<%= owner.balance %></p>
         </div>
-        <div class="content">
-            <a class="header"><%= pet.name %></a>
-            <div class="meta">
-            <span class="date"><p><i class="paw icon"></i> <%= pet.type %>/ <%= pet.breed %></p></span>
-            </div>
-            <div class="description">
-                <p><strong>DOB: </strong><%= pet.dob %></p>
-                <p><strong>Gender: </strong><%= pet.gender %></p>
-                <p><strong>Color: </strong><%= pet.color %></p>
-                <p><strong>Weight: </strong><%= pet.weight %> lbs</p>
-            </div>
-        </div>
-        <div class="extra content">
+    </div>
+    <div class="content">
+        <h2><a class="header"><%= pet.name %></a></h2>
+        <p><i class="paw icon"></i> <%= pet.type %>/ <%= pet.breed %></p>
+        <div class="description">
+            <p><strong>DOB: </strong><%= pet.dob %></p>
+            <p><strong>Gender: </strong><%= pet.gender %></p>
+            <p><strong>Color: </strong><%= pet.color %></p>
+            <p><strong>Weight: </strong><%= pet.weight %> lbs</p>
             <p>Last Visited <%= pet.lastVisited %></p>
         </div>
     </div>
-    <div class="ui card">
-        <div class="content">
-            <a class="header"><%= owner.firstName %> <%= owner.lastName %></a>
-            <div class="description">
-                <p><%= owner.phone %></p>
-                <p><%= owner.email %></p>
-                <p><strong>Total Balance: </strong>$<%= owner.balance %></p>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <% include ../partials/footer %>

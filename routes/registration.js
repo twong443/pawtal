@@ -6,8 +6,18 @@ var reset = function(){
     patient = {}
 }
 
+var addAppt = function(req, res){
+    if(req.body.appointment !== undefined){
+        res.redirect("/appointments/new");
+    } else {
+        reset();
+        res.redirect("/patients");
+    }
+}
+
 module.exports = {
     owner: owner,
     patient: patient,
-    reset: reset
+    reset: reset,
+    addAppt: addAppt
 };
