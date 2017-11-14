@@ -47,11 +47,34 @@ router.post("/appointments", function(req, res){
     });
 });
 
-// UPDATE
+// EDIT
 router.get("/appointments/:id/edit", function(req, res){
 	Appt.findById(req.params.id, function(err, foundAppt){
 		res.render("appointments/edit", {appt: foundAppt});
 	});
+});
+
+// UPDATE
+router.put("/appointments/:id", function(req, res){
+    Appt.findByIdAndUpdate(req.params.id, req.body.appt, function(err, updatedAppt){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        } else{
+            res.redirect("/appointments");
+        }
+    });
+});
+
+//DELETE
+router.delete("/appointments/:id", function(req, res){
+	Appt.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("/appointments");
+        }
+    });
 });
 
 module.exports = router;
