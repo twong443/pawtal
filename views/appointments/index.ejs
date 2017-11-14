@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui vertical fluid menu">
+                <% appts.forEach(function(appt){ %>
+                    <div class="item" data-tab="<%= appt._id %>">
+                        <h4 class="ui header"><%= appt.patient.name %></h4>
+                        <p><%= appt.date %> <%= appt.time %></p>
+                        <p><%= appt.reason %></p>
+                    </div>
+                <% }); %>
+            </div> 
+        </div>
+        <div class="twelve wide stretched column">
+            <% appts.forEach(function(appt){ %>
+                <div class="ui tab" data-tab="<%= appt._id %>">
+                    <p><h2><%= appt.patient.name %></h2></p>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

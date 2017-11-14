@@ -1,8 +1,8 @@
 <% include ../partials/header %>
 
 <div class="ui main container">
-    <h1>Create New Appointment</h1>
-    <form class="ui form" action="/appointments" method="POST">
+    <h1>Edit Appointment for <%=appt.patient.name %></h1>
+    <form class="ui form" action="/appointments/<%= appt._id %>/?_method=PUT" method="POST">
         <div class="field">
             <label for="pet">Pet Name</label>
             <input id="patientsDb" type="text" placeholder="Pet Name || Owner Name">

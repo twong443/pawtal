@@ -2,14 +2,16 @@ var express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
-    request         = require("request");
+    request         = require("request"),
+    methodOverride 	= require("method-override"),
     Patient         = require("./models/patients"),
     Owner           = require("./models/owners"),
     Visit           = require("./models/visits"),
     seedDB          = require("./faker");
 
-var patientRoutes   = require("./routes/patients");
-var visitRoutes   = require("./routes/visits");
+var patientRoutes   = require("./routes/patients"),
+    visitRoutes     = require("./routes/visits"),
+    apptRoutes      = require("./routes/appointments");
 
 var port = process.env.PORT || "8080"
 
@@ -19,6 +21,7 @@ mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/assets"));
 seedDB();
@@ -44,6 +47,23 @@ app.get("/allOwnerNames", function(req, res){
     });
 });
 
+app.get("/allPetNames", function(req, res){
+    Patient.find({}, function(err, allPatients){
+        if(err){
+            console.log(err);
+        }
+        var modifiedPatients = [];
+        allPatients.forEach(function(pet){
+            var mod = {
+                "name" : pet.name + " || " + pet.owner.firstName + " " + pet.owner.lastName,
+                "pet" : pet
+            };
+            modifiedPatients.push(mod);
+        });
+        res.send(modifiedPatients);
+    });
+});
+
 app.get("/alldogbreeds", function(req, res){
     request("https://dog.ceo/api/breeds/list", function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -59,6 +79,7 @@ app.get("/alldogbreeds", function(req, res){
 
 app.use("/patients", patientRoutes);
 app.use(visitRoutes);
+app.use(apptRoutes);
 
 app.listen(port, process.env.IP, function(){
     console.log("Pawtal Server Has Started");

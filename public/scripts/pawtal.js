@@ -12,6 +12,8 @@ rowUrls.forEach(function(row){
 $('table').tablesort();
 // Semantic UI Dropdown
 $("select.dropdown").dropdown();
+// tabbed menu
+$('.menu .item').tab();
 
 // Autocomplete Owner Names
 var ownerOptions = {
@@ -31,6 +33,25 @@ var ownerOptions = {
 };
 
 $("#ownersDb").easyAutocomplete(ownerOptions);
+
+// Autocomplete Pet Names
+var petOptions = {
+	url: function(phrase) {
+		return "/allPetNames";
+	},
+    getValue: "name",
+    list: {
+        onSelectItemEvent: function() {
+            var petObject = $("#patientsDb").getSelectedItemData().pet;
+            $("#pet-data").val(JSON.stringify(petObject)).trigger("change");
+        },
+        match: {
+            enabled: true
+        }
+    }
+};
+
+$("#patientsDb").easyAutocomplete(petOptions);
 
 // Dog Breeds from API
 var breedOptions = {

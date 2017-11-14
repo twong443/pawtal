@@ -14,6 +14,11 @@
     text-align: center;
 }
 
+.ui.tab {
+    background: none;
+    color: black;
+}
+
 /* on confirmation page */
 #apptCheckbox {
     float: right;
