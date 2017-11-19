@@ -1,0 +1,30 @@
+<div data-tab="<%= appt._id %>">
+    <div class="ui items">
+        <div id="patientInfo" class="item">
+            <div class="ui small image">
+                <img src="<%= pet.avatar %>" alt="">
+            </div>
+            <div class="content">
+                <div class="header"><%= pet.name %></div>
+                <div class="meta">
+                    <%= pet.type %>  ||  <%= pet.breed %>
+                    <br><strong>Date of Birth: </strong><%= pet.dob %>
+                    <br><strong>Color: </strong><%= pet.color %>
+                    <br><strong>Weight: </strong><%= pet.weight %> lbs
+                </div>
+                <div class="description">
+                                            
+                </div>
+            </div>
+        </div> 
+    </div>
+    <h3>Appointment Details</h3>
+    <p><span><%= appt.date %></span> <span><%= appt.time %></span>
+        <br><%= appt.reason %>
+        <br><%= appt.notes %>
+    </p>  
+    <a class="tiny ui orange button" href="/appointments/<%= appt._id %>/edit">EDIT</a> 
+    <form class="delete-form" action="/appointments/<%= appt._id %>?_method=DELETE" method="POST">
+        <button class="tiny ui red button">DELETE</button>
+    </form>                                      
+</div>

@@ -3,28 +3,32 @@
 <div class="ui main container">
     <div class="ui grid">
         <div class="four wide column">
+            <a class="ui blue button" href="/appointments/new"><i class="plus icon"></i> New Appointment</a>
             <div class="ui vertical fluid menu">
                 <% appts.forEach(function(appt){ %>
-                    <div class="item" data-tab="<%= appt._id %>">
+                    <div class="item apptTabItem" data-tab="<%= appt._id %>">
                         <h4 class="ui header"><%= appt.patient.name %></h4>
                         <p><%= appt.date %> <%= appt.time %></p>
-                        <p><%= appt.reason %></p>
                     </div>
                 <% }); %>
             </div> 
         </div>
-        <div class="twelve wide stretched column">
-            <% appts.forEach(function(appt){ %>
-                <div class="ui tab" data-tab="<%= appt._id %>">
-                    <p><h2><%= appt.patient.name %></h2></p>
-                    <a class="ui orange button" href="/appointments/<%= appt._id %>/edit">Edit</a> 
-                    <form action="/appointments/<%= appt._id %>?_method=DELETE" method="POST">
-                        <button class="ui red button">DELETE</button>
-                    </form>
-                </div>
-            <% }); %>
+        <div class="twelve wide stretched column apptPatientInfo">
         </div>
     </div>
 </div>
+
+<script>
+    // tabbed menu
+    // $('.menu .item').tab();
+    // Get patient info and display on click
+    $(".apptTabItem").on("click", function(){
+        var apptId = $(this).attr("data-tab");
+
+        $.get("/appointments/" + apptId, function(data){
+            $(".apptPatientInfo").html(data);
+        });
+    });
+</script>
 
 <% include ../partials/footer %>

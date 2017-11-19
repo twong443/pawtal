@@ -80,4 +80,22 @@
     </form>
 </div>
 
+<script>
+    // Dog Breeds from API
+    var breedOptions = {
+        url: function(phrase) {
+            return "/alldogbreeds";
+        },
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            }
+        }
+    };
+
+    $("#breedInput").easyAutocomplete(breedOptions);
+    $('div.easy-autocomplete').removeAttr('style');
+</script>
+
 <% include ../partials/footer %>

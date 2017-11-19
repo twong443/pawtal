@@ -83,7 +83,7 @@ function seedDB(){
             if(err){
                 console.log(err);
             }
-            for(var i=0; i<15; i++){
+            for(var i=0; i<25; i++){
                 Owner.create(randomOwner(), function(err, owner){
                     if(err){
                         console.log(err);

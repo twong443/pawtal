@@ -32,4 +32,27 @@
     </form>
 </div>
 
+<script>
+    // Autocomplete Pet Names
+    var petOptions = {
+        url: function(phrase) {
+            return "/allPetNames";
+        },
+        getValue: "name",
+        list: {
+            onSelectItemEvent: function() {
+                var petObject = $("#patientsDb").getSelectedItemData().pet;
+                $("#pet-data").val(JSON.stringify(petObject)).trigger("change");
+            },
+            match: {
+                enabled: true
+            }
+        }
+    };
+
+    $("#patientsDb").easyAutocomplete(petOptions);
+    $('div.easy-autocomplete').removeAttr('style');
+    
+</script>
+
 <% include ../partials/footer %>

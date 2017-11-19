@@ -4,7 +4,7 @@ var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
 
-// READ ALL
+// READ ALL & SHOW
 router.get("/appointments", function(req, res){
     Appt.find({}, function(err, allAppts){
         if(err){
@@ -12,7 +12,6 @@ router.get("/appointments", function(req, res){
             res.redirect(back);
         } else {
             res.render("appointments/index", {appts: allAppts});
-            console.log(allAppts);
         }
     });
 });
@@ -35,8 +34,12 @@ router.post("/appointments", function(req, res){
         time: time,
         reason: reason,
         notes: notes,
-        patient: patient
+        patient: {
+            id: patient._id,
+            name: patient.name
+        }
     }
+    console.log(newAppt);
     Appt.create(newAppt, function(err){
         if(err){
             console.log(err);
@@ -47,10 +50,25 @@ router.post("/appointments", function(req, res){
     });
 });
 
+// SHOW
+router.get("/appointments/:id", function(req, res){
+    Appt.findById(req.params.id, function(err, foundAppt){
+        if(err){
+            console.log(err);
+            res.redirect(back);
+        } else {
+            Patient.findById(foundAppt.patient.id, function(err, foundPatient){
+                res.render("appointments/show", {appt: foundAppt, pet: foundPatient})
+            });
+        }
+    });
+});
+
 // EDIT
 router.get("/appointments/:id/edit", function(req, res){
 	Appt.findById(req.params.id, function(err, foundAppt){
-		res.render("appointments/edit", {appt: foundAppt});
+        res.render("appointments/edit", {appt: foundAppt});
+        console.log(foundAppt.patient);
 	});
 });
 

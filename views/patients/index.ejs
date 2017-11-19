@@ -32,5 +32,20 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    //make rows into links
+    var rowUrls = document.querySelectorAll(".rowUrl");
+    rowUrls.forEach(function(row){
+        var petId = row.attributes[1].textContent;
+        row.addEventListener("click", function(){
+            // alert(petId);
+            window.location.assign("/patients/" + petId);
+        });
+    });
+
+    // make table sortable;
+    $('table').tablesort();
+</script>
     
 <% include ../partials/footer %>
