@@ -140,7 +140,7 @@ router.post("/", function(req, res){
 });
 
 //SHOW
-router.get("/:id", function(req,res){
+router.get("/:id", function(req, res){
     Patient.findById(req.params.id, function(err, foundPatient){
         if(err || !foundPatient){
             console.log(err);
@@ -155,8 +155,38 @@ router.get("/:id", function(req,res){
     });
 });
 
-//UPDATE
+// EDIT
+router.get("/:id/edit", function(req, res){
+    Patient.findById(req.params.id, function(err, foundPatient){
+        if(err || !foundPatient){
+            console.log(err);
+            res.redirect("/");
+        } else {
+            res.render("patients/edit", {pet: foundPatient})
+        }
+    });
+});
+
+// UPDATE
+router.put("/:id", function(req, res){
+    Patient.findByIdAndUpdate(req.params.id, req.body.pet, function(err, updatedPatient){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/patients/" + req.params.id);
+        }
+    });
+});
 
 //DESTROY
+router.delete("/:id", function(req, res){
+	Patient.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("/patients");
+        }
+    });
+});
 
 module.exports = router;

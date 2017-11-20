@@ -1,0 +1,93 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <h1>Edit Details for <%= pet.name %></h1>
+    <form class="ui form" action="/patients/<%= pet._id %>/?_method=PUT" method="POST">
+        <div id="patientForm">
+            <div class="three fields">
+                <div class="field">
+                    <label for="name">Pet Name</label>
+                    <input type="text" name="pet[name]" value="<%= pet.name %>">
+                </div>
+                <div class="field">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" name="pet[dob]" value="<%= pet.dob %>">
+                </div>
+                <div class="field">
+                    <label>Gender</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="pet[gender]" value="<%= pet.gender %>">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Gender</div>
+                        <div class="menu">
+                            <div class="item" data-value="Male">Male</div>
+                            <div class="item" data-value="Female">Female</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Type</label>
+                    <div class="ui selection dropdown">
+                            <input type="hidden" name="pet[type]" value="<%= pet.type %>">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Type</div>
+                            <div class="menu">
+                                <div class="item" data-value="Dog">Dog</div>
+                                <div class="item" data-value="Cat">Cat</div>
+                            </div>
+                        </div>
+                </div>
+                <div class="field">
+                    <label for="Breed">Breed</label>
+                    <input id="breedInput" type="text" name="pet[breed]" value="<%= pet.breed %>">          
+                </div>
+                <div class="field">
+                    <label for="Color">Color</label>
+                    <input type="text" name="pet[color]" value="<%= pet.color %>">
+                </div>
+            </div>
+        
+            <div class="three fields">
+                <div class="field">
+                    <label for="weight">Weight</label>
+                    <div class="ui right labeled input">
+                        <input type="number" name="pet[weight]" value="<%= pet.weight %>" min="1" step=".5">
+                        <div class="ui basic label">lbs</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="avatar">Avatar</label>
+                    <input type="file" name="pet[avatar]" placeholder="Pet Avatar">
+                </div>
+            </div>
+            <div class="field">
+                <button class="ui right floated green button" type="submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('.ui.dropdown').dropdown();
+    // Dog Breeds from API
+    var breedOptions = {
+        url: function(phrase) {
+            return "/alldogbreeds";
+        },
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            }
+        }
+    };
+
+    $("#breedInput").easyAutocomplete(breedOptions);
+    $('div.easy-autocomplete').removeAttr('style');
+</script>
+
+<% include ../partials/footer %>

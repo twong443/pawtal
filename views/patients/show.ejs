@@ -23,6 +23,10 @@
             <p>Last Visited <%= pet.lastVisited %></p>
         </div>
     </div>
+    <a class="tiny ui orange button" href="/patients/<%= pet._id %>/edit">EDIT</a> 
+    <form class="delete-form" action="/patients/<%= pet._id %>?_method=DELETE" method="POST">
+        <button class="tiny ui red button">DELETE</button>
+    </form>   
 </div>
 
 <% include ../partials/footer %>

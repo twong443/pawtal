@@ -67,8 +67,11 @@ router.get("/appointments/:id", function(req, res){
 // EDIT
 router.get("/appointments/:id/edit", function(req, res){
 	Appt.findById(req.params.id, function(err, foundAppt){
-        res.render("appointments/edit", {appt: foundAppt});
-        console.log(foundAppt.patient);
+        if(err){
+            console.log(err);
+        } else {
+            res.render("appointments/edit", {appt: foundAppt});
+        }        
 	});
 });
 
