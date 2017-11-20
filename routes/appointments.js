@@ -39,7 +39,6 @@ router.post("/appointments", function(req, res){
             name: patient.name
         }
     }
-    console.log(newAppt);
     Appt.create(newAppt, function(err){
         if(err){
             console.log(err);

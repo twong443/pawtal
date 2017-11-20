@@ -10,6 +10,7 @@ var express     	= require("express"),
     seedDB          = require("./faker");
 
 var patientRoutes   = require("./routes/patients"),
+    ownerRoutes     = require("./routes/owners"),
     visitRoutes     = require("./routes/visits"),
     apptRoutes      = require("./routes/appointments");
 
@@ -78,6 +79,7 @@ app.get("/alldogbreeds", function(req, res){
 });
 
 app.use("/patients", patientRoutes);
+app.use("/owners", ownerRoutes);
 app.use(visitRoutes);
 app.use(apptRoutes);
 

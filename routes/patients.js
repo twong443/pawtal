@@ -1,8 +1,10 @@
 var express = require("express");
 var router = express.Router();
-// var request = require("request");
+var states = require("datasets-us-states-names");
+var countries = require("country-list")();
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
+var Appt = require("../models/appointments");
 var register = require("./registration");
 
 //INDEX ROUTE - show all patients
@@ -20,11 +22,12 @@ router.get("/", function(req, res){
 
 // NEW ROUTE
 router.get("/register", function(req, res){
+    var countriesArr = countries.getNames(); 
     Owner.find({}, function(err, allOwners){
         if(err){
             console.log(err);
         } else {
-            res.render("register/owner", {owners: allOwners});
+            res.render("register/owner", {owners: allOwners, states: states, countries: countriesArr});
         }
     }); 
 });
@@ -149,6 +152,7 @@ router.get("/:id", function(req, res){
         Owner.findById(foundPatient.owner.id, function(err, foundOwner){
             if(err || !foundOwner){
                 console.log(err);
+                res.redirect("/");
             }
             res.render("patients/show", {pet:foundPatient, owner: foundOwner});
         });
@@ -162,7 +166,7 @@ router.get("/:id/edit", function(req, res){
             console.log(err);
             res.redirect("/");
         } else {
-            res.render("patients/edit", {pet: foundPatient})
+            res.render("patients/edit", {pet: foundPatient});
         }
     });
 });
@@ -180,11 +184,17 @@ router.put("/:id", function(req, res){
 
 //DESTROY
 router.delete("/:id", function(req, res){
-	Patient.findByIdAndRemove(req.params.id, function(err){
+	Patient.findByIdAndRemove(req.params.id, function(err, foundPatient){
         if(err){
             res.redirect("back");
         } else {
-            res.redirect("/patients");
+            Appt.find({'patient.id': foundPatient._id}).remove(function(err){
+                if(err){
+                    console.log(err);
+                } else {
+                    res.redirect("/patients");                    
+                }
+            });
         }
     });
 });

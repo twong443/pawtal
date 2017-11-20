@@ -1,0 +1,84 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <h1>Edit Details for <%= owner.firstName %> <%= owner.lastName %></h1>
+    <form class="ui form" action="/owners/<%= owner._id %>/?_method=PUT" method="POST">
+        <div class="field">
+            <label>Name</label>
+            <div class="two fields">
+                <div class="field">
+                    <input type="text" name="owner[firstName]" value="<%= owner.firstName %>">
+                </div>
+                <div class="field">
+                    <input type="text" name="owner[lastName]" value="<%= owner.lastName %>">
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label>Address</label>
+            <div class="fields">
+                <div class="twelve wide field">
+                    <input type="text" name="owner[address.street]" value="<%= owner.address.street %>">
+                </div>
+                <div class="four wide field">
+                    <input type="text" name="owner[address.secondAddress]" value="<%= owner.address.secondAddress %>">
+                </div>
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="field">
+                <label for="city">City</label>
+                <input type="text" name="owner[address.city]" value="<%= owner.address.city %>">
+            </div>
+            <div class="field">
+                <label>State</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="owner[address.state]" value="<%= owner.address.state %>">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">State</div>
+                    <div class="menu">
+                        <% states.forEach(function(state){ %>
+                            <div class="item" data-value="<%= state %>"><%= state %></div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="zipCode">Zip Code</label>
+                <input type="text" name="owner[zipCode]" value="<%= owner.address.zipCode %>">
+            </div>
+            <div class="field">
+                <label>Country</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="owner[address.country]" value="<%= owner.address.country %>">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Country</div>
+                    <div class="menu">
+                        <% countries.forEach(function(country){ %>
+                            <div class="item" data-value="<%= country %>"><%= country %></div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="required field">
+                <label>Phone</label>
+                <input type="tel" name="owner[phone]" value="<%= owner.phone %>">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="owner[email]" value="<%= owner.email %>">
+            </div>
+        </div>
+        <button class="ui right floated green button" type="submit">
+           Submit
+        </button>
+    </form>
+</div>
+
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
+
+<% include ../partials/footer %>

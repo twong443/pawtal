@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <a href="/patients/register" class="ui right floated blue button"><i class="paw icon"></i>Add New Owner</a>
+    <h1>View all Owners</h1>
+    <table class="ui sortable selectable striped compact blue table" id="ownerTable">
+        <thead>
+            <tr id="theader">                     
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Email</th>                
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% owners.forEach(function(owner){ %>
+            <tr class="rowUrl" data-id="<%= owner._id %>">     
+                <td><%= owner.firstName %></td>
+                <td><%= owner.lastName %></td>
+                <td><%= owner.phone %></td>
+                <td><%= owner.email %></td>
+                <td>$<%= owner.balance %></td>            
+            </tr>             
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    //make rows into links
+    var rowUrls = document.querySelectorAll(".rowUrl");
+    rowUrls.forEach(function(row){
+        var ownerId = row.attributes[1].textContent;
+        row.addEventListener("click", function(){
+            window.location.assign("/owners/" + ownerId);
+        });
+    });
+
+    // make table sortable;
+    $('table').tablesort();
+</script>
+    
+<% include ../partials/footer %>

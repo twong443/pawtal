@@ -23,7 +23,7 @@ var randomOwner = function() {
             street: faker.address.streetAddress(),
             secondAddress: faker.address.secondaryAddress(),            
             city: faker.address.city(),
-            state: faker.address.stateAbbr(),
+            state: faker.address.state(),
             zipCode: faker.address.zipCode(),
             country: faker.address.country()
         },
