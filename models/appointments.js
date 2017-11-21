@@ -10,17 +10,8 @@ var apptSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Patient"
         },
-        name: String,
-        owner: {
-            id: String
-        }
-    },
-    owner: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Owner"
-        }
+        name: String
     }
 });
 
-module.exports = mongoose.model("Appointment", apptSchema); 
+module.exports = mongoose.model("Appointment", apptSchema);
