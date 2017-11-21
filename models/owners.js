@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+// var Patient  = require("./patients");
 
 var ownerSchema = new mongoose.Schema({
     firstName: String,
@@ -16,5 +17,11 @@ var ownerSchema = new mongoose.Schema({
     },
     balance: String
 });
+
+// ownerSchema.pre('remove', function(next) {
+//     // 'this' is the owner being removed. Provide callbacks here if you want to be notified of the calls' result.
+//     Patient.remove({owner: this}).exec();
+//     next();
+// });
 
 module.exports = mongoose.model("Owner", ownerSchema); 

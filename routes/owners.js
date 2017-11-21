@@ -55,17 +55,32 @@ router.put("/:id", function(req, res){
 
 //DESTROY
 router.delete("/:id", function(req, res){
-	Owner.findByIdAndRemove(req.params.id, function(err, foundOwner){
+	Owner.findById(req.params.id, function(err, foundOwner){
         if(err){
             res.redirect("back");
         } else {
-            Appt.find({'patient.id': foundPatient._id}).remove(function(err){
+            Patient.find({'owner.id': foundOwner._id}, function(err, foundPatients){
                 if(err){
                     console.log(err);
+                    res.redirect("back");
                 } else {
-                    res.redirect("/patients");                    
-                }
+                    foundPatients.forEach(function(foundPatient){
+                        Appt.find({'patient.id': foundPatient._id}, function(err, foundAppts){
+                            if(err){
+                                console.log(err);
+                                res.redirect("back");
+                            } else {
+                                foundAppts.forEach(function(foundAppt){
+                                    foundAppt.remove();                                    
+                                });
+                            }
+                        });
+                        foundPatient.remove();
+                    });
+                }                
             });
+            foundOwner.remove();
+            res.redirect("/owners");
         }
     });
 });
