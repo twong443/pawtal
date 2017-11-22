@@ -1,0 +1,52 @@
+<% include ../partials/header %>
+
+<div class="ui main container">
+    <h1>Start New Visit for <%= pet.name %></h1>
+    <form class="ui form" action="/patients/<%= pet._id %>/visits" method="POST">
+        <div class="two fields">
+            <div class="field">
+                <label for="date">Date</label> 
+                <input type="date" name="date" placeholder="mm/dd/yy">
+            </div>            
+            <div class="field">
+                <label for="time">Time</label>
+                <input type="time" name="time" placeholder="">
+            </div>
+        </div>
+        <div class="field">
+            <label for="reason">Reason for Visit</label>
+            <input type="text" name="reason">
+        </div>
+        <div class="field">
+            <label for="weight">Weight</label>
+            <div class="ui right labeled input">
+                <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+                <div class="ui basic label">lbs</div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="medications">Medications</label>
+            <input type="text" name="medications" placeholder="Medications">
+        </div>
+        <div class="field">
+            <label for="diagnosis">Diagnosis</label>
+            <input type="text" name="diagnosis" placeholder="Diagnosis">
+        </div>
+        <div class="field">
+            <label for="notes">Notes</label>
+            <input type="text" name="notes" placeholder="Notes">
+        </div>
+        <div class="field">
+            <label for="cost">Cost</label>
+            <div class="ui left labeled input">
+                <div class="ui basic label">$</div>
+                <input type="number" name="cost" placeholder="Cost" step=".01">            
+            </div>
+        </div>
+        <button class="ui right floated green button" type="submit">
+            Submit
+        </button>
+    </form>
+</div>
+
+<% include ../partials/footer %>
