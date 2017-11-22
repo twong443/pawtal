@@ -24,7 +24,14 @@ router.get("/:id", function(req, res){
             console.log(err);
             res.redirect("/owners");
         } else {
-            res.render("owners/show", {owner: foundOwner});
+            Patient.find({'owner.id': foundOwner._id}, function(err, foundPatients){
+                if(err){
+                    console.log(err);
+                    res.redirect("/owners");
+                } else {
+                    res.render("owners/show", {owner: foundOwner, pets: foundPatients});            
+                }
+            });
         }
     });
 });
