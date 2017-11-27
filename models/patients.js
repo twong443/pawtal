@@ -18,13 +18,7 @@ var patientSchema = new mongoose.Schema({
         },
         firstName: String,
         lastName: String
-    },
-    visit: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Visit"
-        }
-    ]
+    }
 });
 
 module.exports = mongoose.model("Patient", patientSchema); 

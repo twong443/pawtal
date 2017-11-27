@@ -37,7 +37,7 @@ app.use(apiRoutes);
 app.use(registerRoutes);
 app.use("/patients", patientRoutes);
 app.use("/owners", ownerRoutes);
-app.use("/patients/:id/visits", visitRoutes);
+app.use(visitRoutes);
 app.use("/appointments", apptRoutes);
 
 app.listen(port, process.env.IP, function(){

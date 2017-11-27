@@ -5,7 +5,7 @@ var visitSchema = new mongoose.Schema({
     time: String,
     reason: String,
     weight: String,
-    medications: String,
+    medication: String,
     diagnosis: String,
     notes: String,
     cost: String,

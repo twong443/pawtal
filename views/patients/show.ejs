@@ -23,10 +23,21 @@
             <p>Last Visited <%= pet.lastVisited %></p>
         </div>
     </div>
+    
+    <div id="visitsInfo" data-id="<%= pet._id %>">
+    </div>
+
     <a class="tiny ui orange button" href="/patients/<%= pet._id %>/edit">EDIT</a> 
     <form class="delete-form" action="/patients/<%= pet._id %>?_method=DELETE" method="POST">
         <button class="tiny ui red button">DELETE</button>
     </form>
 </div>
+
+<script>
+    var petId = $("#visitsInfo").attr("data-id");
+    $.get("/patients/" + petId +"/visits", function(data){
+        $("#visitsInfo").html(data);
+    });
+</script>
 
 <% include ../partials/footer %>

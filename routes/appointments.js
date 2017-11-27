@@ -5,7 +5,7 @@ var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
 
 // READ ALL & SHOW
-router.get("/appointments", function(req, res){
+router.get("/", function(req, res){
     Appt.find({}, function(err, allAppts){
         if(err){
             console.log(err);
@@ -17,12 +17,12 @@ router.get("/appointments", function(req, res){
 });
 
 // NEW
-router.get("/appointments/new", function(req, res){
+router.get("/new", function(req, res){
     res.render("appointments/new");
 });
 
 // CREATE
-router.post("/appointments", function(req, res){
+router.post("/", function(req, res){
     var parsePatient = JSON.parse(req.body.pet);
     var date = req.body.date,
         time = req.body.time,
@@ -50,7 +50,7 @@ router.post("/appointments", function(req, res){
 });
 
 // SHOW
-router.get("/appointments/:id", function(req, res){
+router.get("/:id", function(req, res){
     Appt.findById(req.params.id, function(err, foundAppt){
         if(err){
             console.log(err);
@@ -65,7 +65,7 @@ router.get("/appointments/:id", function(req, res){
 });
 
 // EDIT
-router.get("/appointments/:id/edit", function(req, res){
+router.get("/:id/edit", function(req, res){
 	Appt.findById(req.params.id, function(err, foundAppt){
         if(err){
             console.log(err);
@@ -76,7 +76,7 @@ router.get("/appointments/:id/edit", function(req, res){
 });
 
 // UPDATE
-router.put("/appointments/:id", function(req, res){
+router.put("/:id", function(req, res){
     Appt.findByIdAndUpdate(req.params.id, req.body.appt, function(err, updatedAppt){
         if(err){
             console.log(err);
@@ -88,7 +88,7 @@ router.put("/appointments/:id", function(req, res){
 });
 
 //DELETE
-router.delete("/appointments/:id", function(req, res){
+router.delete("/:id", function(req, res){
 	Appt.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("back");

@@ -1,0 +1,34 @@
+<h1>Visits for <%= pet.name %></h1>
+<table class="ui sortable selectable striped compact blue table" id="visitTable">
+    <thead>
+        <tr id="theader">                     
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+            <th>Diagnosis</th>                    
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% visits.forEach(function(visit){ %>
+        <tr class="rowUrl" data-id="<%= visit._id %>">     
+            <td><%= visit.date %></td>                
+            <td><%= visit.time %></td>                
+            <td><%= visit.reason %></td>
+            <td><%= visit.diagnosis %></td>                
+            <td><%= visit.cost %></td>
+        </tr>             
+        <% }); %>
+    </tbody>
+</table>
+
+<% var petId = pet._id; %>
+<script>
+    var rowUrls = document.querySelectorAll(".rowUrl");
+    rowUrls.forEach(function(row){
+        var visitId = row.attributes[1].textContent;
+        row.addEventListener("click", function(){
+            window.location.assign("/patients/" + petId + "/visits/" + visitId);
+        });
+    });
+</script>

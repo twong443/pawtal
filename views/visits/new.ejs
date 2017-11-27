@@ -2,7 +2,7 @@
 
 <div class="ui main container">
     <h1>Start New Visit for <%= pet.name %></h1>
-    <form class="ui form" action="/patients/<%= pet._id %>/visits" method="POST">
+    <form class="ui form" action="/patients/<%= pet._id %>" method="POST">
         <div class="two fields">
             <div class="field">
                 <label for="date">Date</label> 
@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="field">
-            <label for="medications">Medications</label>
-            <input type="text" name="medications" placeholder="Medications">
+            <label for="medication">Medication</label>
+            <input type="text" name="medication" placeholder="Medication">
         </div>
         <div class="field">
             <label for="diagnosis">Diagnosis</label>
