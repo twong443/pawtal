@@ -9,7 +9,8 @@ var express     	= require("express"),
     Visit           = require("./models/visits"),
     seedDB          = require("./faker");
 
-var patientRoutes   = require("./routes/patients"),
+var apiRoutes       = require("./routes/api"),
+    patientRoutes   = require("./routes/patients"),
     ownerRoutes     = require("./routes/owners"),
     registerRoutes  = require("./routes/register"),
     visitRoutes     = require("./routes/visits"),
@@ -32,58 +33,12 @@ app.get("/", function(req, res){
     res.render("landing");
 });
 
-app.get("/allOwnerNames", function(req, res){
-    Owner.find({}, function(err, allOwners){
-        if(err){
-            console.log(err);
-        }
-        var modifiedOwners = [];
-        allOwners.forEach(function(owner){
-            var mod = {
-                "name" : owner.firstName + " " + owner.lastName + " || " + owner.phone,
-                "owner" : owner
-            };
-            modifiedOwners.push(mod);
-        });
-        res.send(modifiedOwners);
-    });
-});
-
-app.get("/allPetNames", function(req, res){
-    Patient.find({}, function(err, allPatients){
-        if(err){
-            console.log(err);
-        }
-        var modifiedPatients = [];
-        allPatients.forEach(function(pet){
-            var mod = {
-                "name" : pet.name + " || " + pet.owner.firstName + " " + pet.owner.lastName,
-                "pet" : pet
-            };
-            modifiedPatients.push(mod);
-        });
-        res.send(modifiedPatients);
-    });
-});
-
-app.get("/alldogbreeds", function(req, res){
-    request("https://dog.ceo/api/breeds/list", function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var info = JSON.parse(body);
-            var breeds = [];
-            info.message.forEach(function(breed){
-                breeds.push({name: breed});
-            });
-            res.send(breeds);
-        }
-    });
-});
-
+app.use(apiRoutes);
+app.use(registerRoutes);
 app.use("/patients", patientRoutes);
 app.use("/owners", ownerRoutes);
-app.use(registerRoutes);
-app.use(visitRoutes);
-app.use(apptRoutes);
+app.use("/patients/:id/visits", visitRoutes);
+app.use("/appointments", apptRoutes);
 
 app.listen(port, process.env.IP, function(){
     console.log("Pawtal Server Has Started");
