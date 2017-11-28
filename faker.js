@@ -1,16 +1,18 @@
-var faker   = require("faker"),
-    request = require("request"),
-    sr = require("sync-request"),   
-    petNames = require("dog-names"), 
-    Patient = require("./models/patients"),
-    Owner   = require("./models/owners");
-var moment = require("moment");
+var faker       = require("faker"),
+    request     = require("request"),
+    sr          = require("sync-request"),
+    moment      = require("moment"),   
+    petNames    = require("dog-names"), 
+    Patient     = require("./models/patients"),
+    Owner       = require("./models/owners"),
+    Order       = require("./models/orders");
 
 var sex = ['Female', 'Male'],
     species = ['Dog', 'Cat'],
     colors = ['Brown', 'Black', 'White', 'Grey', 'Red', 'Tan', 'Multicolored'],
     dogBreed = getBreeds(),
-    catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'];
+    catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'],
+    orderType = ['Medication', 'Procedure'];
 
 var randomOwner = function() {
     return {
@@ -26,8 +28,8 @@ var randomOwner = function() {
             state: faker.address.state(),
             zipCode: faker.address.zipCode(),
             country: faker.address.country()
-        },
-        balance: faker.finance.amount()
+        }
+        // balance: faker.finance.amount()
     }
 }
 
@@ -55,9 +57,17 @@ var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
         breed: patientBreed,
         color: colors[Math.floor(Math.random()*colors.length)],
         weight: faker.random.number({min:5, max:300}),
-        lastVisited: formattedLastVisited,
+        // lastVisited: formattedLastVisited,
         owner: petOwner,
         avatar: avatar
+    }
+}
+
+var randomOrder = function(){   
+    return {
+        name: faker.commerce.productName(),
+        type: orderType[Math.floor(Math.random()*orderType.length)],
+        cost: faker.commerce.price()
     }
 }
 
@@ -104,4 +114,19 @@ function seedDB(){
     });
 }
 
-module.exports = seedDB;
+function seedOrders(){
+    Order.remove({}, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            for(var i=0; i<50; i++){
+                Order.create(randomOrder());                
+            }
+        }
+    });
+}
+
+module.exports = {
+    seedDB,
+    seedOrders
+};

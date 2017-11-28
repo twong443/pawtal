@@ -7,7 +7,7 @@ var express     	= require("express"),
     Patient         = require("./models/patients"),
     Owner           = require("./models/owners"),
     Visit           = require("./models/visits"),
-    seedDB          = require("./faker");
+    faker           = require("./faker");
 
 var apiRoutes       = require("./routes/api"),
     patientRoutes   = require("./routes/patients"),
@@ -27,7 +27,8 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/assets"));
-// seedDB();
+// faker.seedDB();
+// faker.seedOrders();
 
 app.get("/", function(req, res){
     res.render("landing");
