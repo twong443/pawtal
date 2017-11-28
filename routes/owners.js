@@ -84,7 +84,7 @@ router.delete("/:id", function(req, res){
                         });
                         foundPatient.remove();
                     });
-                }                
+                }
             });
             foundOwner.remove();
             res.redirect("/owners");

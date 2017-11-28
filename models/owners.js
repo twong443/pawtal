@@ -14,8 +14,7 @@ var ownerSchema = new mongoose.Schema({
         state: String,
         zipCode: String,
         country: String
-    },
-    balance: String
+    }
 });
 
 module.exports = mongoose.model("Owner", ownerSchema); 

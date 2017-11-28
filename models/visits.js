@@ -8,7 +8,6 @@ var visitSchema = new mongoose.Schema({
     medication: String,
     diagnosis: String,
     notes: String,
-    cost: String,
     patient: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

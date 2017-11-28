@@ -52,7 +52,7 @@ router.get("/patients/:id/visits/:visit_id", function(req, res){
 });
 
 // CREATE
-router.post("/patients/:id/visits/:id", function(req, res){
+router.post("/patients/:id", function(req, res){
     Patient.findById(req.params.id, function(err, foundPatient){
         var date = req.body.date,
             time = req.body.time,
@@ -81,7 +81,18 @@ router.post("/patients/:id/visits/:id", function(req, res){
                 console.log(err);
                 res.redirect("back");
             } else {
-                res.redirect("/patients/" + foundPatient._id + "/visits/" + visit._id);
+                if (visit.weight && visit.weight.length > 0){
+                    foundPatient.weight = visit.weight;                    
+                } else {
+                    foundPatient.lastVisited = visit.date;
+                    foundPatient.save(function(err){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            res.redirect("/patients/" + foundPatient._id);                        
+                        }
+                    });
+                }                
             }
         });
     });
