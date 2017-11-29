@@ -2,11 +2,7 @@ var express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
-    request         = require("request"),
     methodOverride 	= require("method-override"),
-    Patient         = require("./models/patients"),
-    Owner           = require("./models/owners"),
-    Visit           = require("./models/visits"),
     faker           = require("./faker");
 
 var apiRoutes       = require("./routes/api"),

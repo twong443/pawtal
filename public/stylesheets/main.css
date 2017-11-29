@@ -30,7 +30,7 @@
 }
 
 /* create pagination buttons */
-input[type="button"] {
+/* input[type="button"] {
     font-family: Lato, sans-serif;
     transition: all .3s;
     padding: 8px 16px;
@@ -56,4 +56,4 @@ input[type="button"]:hover:not(.active) {
 #buttons {
     float: right;
     margin-bottom: 20px;
-}
+} */

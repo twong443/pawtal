@@ -57,7 +57,6 @@ router.get("/:id", function(req, res){
             res.redirect(back);
         } else {
             Patient.findById(foundAppt.patient.id, function(err, foundPatient){
-                console.log(foundAppt);
                 res.render("appointments/show", {appt: foundAppt, pet: foundPatient})
             });
         }

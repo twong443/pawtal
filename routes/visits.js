@@ -58,7 +58,7 @@ router.post("/patients/:id", function(req, res){
             time = req.body.time,
             reason = req.body.reason,
             weight = req.body.weight,
-            meds = req.body.medication,
+            orders = req.body.orders,
             diagnosis = req.body.diagnosis,
             notes = req.body.notes,
             cost = req.body.cost;
@@ -67,7 +67,7 @@ router.post("/patients/:id", function(req, res){
             time: time,
             reason: reason,
             weight: weight,
-            medication: meds,
+            orders: orders,
             diagnosis: diagnosis,
             notes: notes,
             cost: cost,

@@ -5,14 +5,14 @@ var faker       = require("faker"),
     petNames    = require("dog-names"), 
     Patient     = require("./models/patients"),
     Owner       = require("./models/owners"),
-    Order       = require("./models/orders");
+    Order       = require("./models/orderCatalog");
 
-var sex = ['Female', 'Male'],
-    species = ['Dog', 'Cat'],
-    colors = ['Brown', 'Black', 'White', 'Grey', 'Red', 'Tan', 'Multicolored'],
-    dogBreed = getBreeds(),
-    catBreed = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'],
-    orderType = ['Medication', 'Procedure'];
+var sex         = ['Female', 'Male'],
+    species     = ['Dog', 'Cat'],
+    colors      = ['Brown', 'Black', 'White', 'Grey', 'Red', 'Tan', 'Multicolored'],
+    dogBreed    = getBreeds(),
+    catBreed    = ['Scottish Fold', 'Siamese', 'Persian', 'Sphynx', 'British Shorthair', 'Ragdoll'],
+    orderType   = ['Medication', 'Procedure'];
 
 var randomOwner = function() {
     return {

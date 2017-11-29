@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
+var Order = require("../models/orderCatalog");
 
 router.get("/allOwnerNames", function(req, res){
     Owner.find({}, function(err, allOwners){
@@ -34,6 +35,23 @@ router.get("/allPetNames", function(req, res){
             modifiedPatients.push(mod);
         });
         res.send(modifiedPatients);
+    });
+});
+
+router.get("/allOrders", function(req, res){
+    Order.find({}, function(err, allOrders){
+        if(err){
+            console.log(err);
+        }
+        var modifiedOrders = [];
+        allOrders.forEach(function(order){
+            var mod = {
+                "name" : order.name + " || " + order.type,
+                "order" : order
+            };
+            modifiedOrders.push(mod);
+        });
+        res.send(modifiedOrders);
     });
 });
 

@@ -25,8 +25,27 @@
             </div>
         </div>
         <div class="field">
-            <label for="medication">Medication</label>
-            <input type="text" name="medication" placeholder="Medication">
+            <div id="modalButton" class="ui green button">
+                Add Orders
+            </div>
+            <div class="ui modal">
+                <i class="close icon"></i>
+                <div class="header">
+                Add Orders
+                </div>
+                <div class="content">
+                    <input id="ordersInput" type="text" placeholder="Add New Order">
+                    <input id="order-data" type="hidden">
+                    <ul id="selectedOrders"></ul>
+                </div>
+                <div class="actions">
+                    <div class="ui cancel button">Cancel</div>
+                    <div class="ui approve button">OK</div>
+                </div>
+            </div>
+            <ul id="activeOrders">
+
+            </ul>
         </div>
         <div class="field">
             <label for="diagnosis">Diagnosis</label>
@@ -48,5 +67,88 @@
         </button>
     </form>
 </div>
+
+
+<script>
+    var orders = [];
+    // modal script
+    $('#modalButton').on('click', function(){
+        $('.ui.modal').modal({
+            closable  : false,
+            onDeny    : function(){
+                $('.listedOrders').remove();
+                event.stopPropagation();
+                return false;
+            },
+            onApprove : function() {
+                $('#activeOrders').html("");
+                for(var i=0; i<orders.length; i++){
+                    var jsonOrder = JSON.parse(orders[i]);
+                    $('#activeOrders').append('<li>' + jsonOrder.name + '</li>');                                                
+                }
+            },
+            onShow : function() {
+                $('#selectedOrders').html("");
+            }
+          })
+        .modal('show')
+    });
+
+    //autocomplete orders
+    var orderOptions = {
+        url: function(phrase) {
+            return "/allOrders";
+        },
+        getValue: "name",
+        list: {
+            onSelectItemEvent: function() {
+                var orderObject = $("#ordersInput").getSelectedItemData().order;
+                $("#order-data").val(JSON.stringify(orderObject)).trigger("change");
+            },
+            match: {
+                enabled: true
+            }
+        }
+    };
+
+    $("#ordersInput").easyAutocomplete(orderOptions);
+    $('div.easy-autocomplete').removeAttr('style');
+
+    //add to list from input
+    var isHidden = false;
+
+    $("ul").on("click", "li", function(){
+        $(this).toggleClass("completed");
+    });
+
+    $("ul").on("click", "span", function(event){
+        $(this).parent().fadeOut(300, function(){
+            $(this).remove();
+        });
+        //this stops any other events from bubbling up into parent elements
+        event.stopPropagation();
+    });
+
+    $("#ordersInput").keypress(function(event){
+        //"Enter" key has the character code of 13
+        if(event.which === 13) {
+            orders.push($("#order-data").val());             
+            var orderText = $(this).val();
+            $("ul").append("<li class='listedOrders'><span><i class='fa fa-trash-o'></i></span> " + orderText + "</li>");
+            $(this).val("");
+        }
+    });
+
+    $(".fa-plus").on("click", function(){
+        $("#ordersInput").slideToggle(100, function(){
+            if(isHidden) {
+                isHidden = false;
+                $("#ordersInput").focus();
+            } else {
+                isHidden = true;
+            }
+        });	
+    });
+</script>
 
 <% include ../partials/footer %>

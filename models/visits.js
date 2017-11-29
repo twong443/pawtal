@@ -5,7 +5,12 @@ var visitSchema = new mongoose.Schema({
     time: String,
     reason: String,
     weight: String,
-    medication: String,
+    orders: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "OrderCatalog" 
+        }
+    ],
     diagnosis: String,
     notes: String,
     patient: {

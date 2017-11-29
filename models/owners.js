@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-// var Patient  = require("./patients");
 
 var ownerSchema = new mongoose.Schema({
     firstName: String,

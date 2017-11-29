@@ -5,7 +5,7 @@ var billingSchema = new mongoose.Schema({
         {
             id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Order"
+                ref: "OrderCatalog"
             },
             cost: String
         }

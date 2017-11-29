@@ -2,7 +2,7 @@
 
 <div class="ui main container">
     <div class="content">
-        <h2><a><%= owner.firstName %> <%= owner.lastName %></a></h2>
+        <h2><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h2>
         <div class="description">
                 <p><%= owner.address.street %> <%= owner.address.secondAddress %>
                 <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
