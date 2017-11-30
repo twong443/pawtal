@@ -1,6 +1,5 @@
 <% include ../partials/header %>
 
-<div class="ui main container">
     <h1>This is the show page for <%= owner.firstName %></h1>
     <p><%= owner.address.street %> <%= owner.address.secondAddress %> <%= owner.address.city %> <%= owner.address.state %> <%= owner.address.zipCode %> <%= owner.address.country %></p>
     <% pets.forEach(function(pet){ %>
@@ -15,6 +14,5 @@
     <form class="delete-form" action="/owners/<%= owner._id %>?_method=DELETE" method="POST">
         <button class="tiny ui red button">DELETE</button>
     </form>
-</div>
 
 <% include ../partials/footer %>

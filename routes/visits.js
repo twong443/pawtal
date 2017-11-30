@@ -39,12 +39,12 @@ router.get("/patients/:id/visits/:visit_id", function(req, res){
             console.log(err);
             res.redirect("back");
         } else {
-            Visit.findById(req.params.visit_id, function(err, foundVisit){
+            Visit.findById(req.params.visit_id).populate("orders").exec(function(err, foundVisit){
                 if(err || !foundVisit){
                     console.log(err);
                     res.redirect("back");
                 } else {
-                    res.render("visits/show", {visit: foundVisit});
+                    res.render("visits/show", {visit: foundVisit, pet: foundPatient});
                 }
             });
         }
@@ -60,17 +60,19 @@ router.post("/patients/:id", function(req, res){
             weight = req.body.weight,
             orders = req.body.orders,
             diagnosis = req.body.diagnosis,
-            notes = req.body.notes,
-            cost = req.body.cost;
+            notes = req.body.notes;
+        var parseOrders = [];
+        orders.forEach(function(order){
+            parseOrders.push(JSON.parse(order));
+        });
         var newVisit = {
             date: date,
             time: time,
             reason: reason,
             weight: weight,
-            orders: orders,
+            orders: parseOrders,
             diagnosis: diagnosis,
             notes: notes,
-            cost: cost,
             patient: {
                 id: foundPatient._id,
                 name: foundPatient.name

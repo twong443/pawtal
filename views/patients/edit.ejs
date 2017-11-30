@@ -1,6 +1,5 @@
 <% include ../partials/header %>
 
-<div class="ui main container">
     <h1>Edit Details for <%= pet.name %></h1>
     <form class="ui form" action="/patients/<%= pet._id %>/?_method=PUT" method="POST">
         <div id="patientForm">
@@ -69,7 +68,6 @@
             </div>
         </div>
     </form>
-</div>
 
 <script>
     $('.ui.dropdown').dropdown();

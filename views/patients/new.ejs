@@ -1,59 +1,57 @@
 <% include ../partials/header %>
 
-    <div class="ui main container">
-        <div class="ui three ordered steps">
-            <div id="ownerStep" class="step">
-                <div class="content">
-                    <div class="title">Add Owner</div>
-                </div>
-            </div>
-            <div id="petStep" class="step">
-                <div class="content">
-                    <div class="title">Add Pet</div>
-                </div>
-            </div>
-            <div id="confirmStep" class="disabled step">
-                <div class="content">
-                    <div class="title">Confirm Details</div>
-                </div>
+    <div class="ui three ordered steps">
+        <div id="ownerStep" class="step">
+            <div class="content">
+                <div class="title">Add Owner</div>
             </div>
         </div>
-        <div id="buttonsContainer">
-            <div id="newOrExisitngBtns" class="ui buttons">
-                <button id="addExistingBtn" class="ui button">Existing Owner</button>
-                <div class="or"></div>
-                <button id="addNewBtn" class="ui button">Add New Owner</button>
+        <div id="petStep" class="step">
+            <div class="content">
+                <div class="title">Add Pet</div>
             </div>
         </div>
-        
-        <form class="ui form" action="/patients" method="POST">
-            <% include ../partials/ownerForms %>
-            <% include ../partials/patientForm %>
-            <div id="confirmPage" style="display:none">
-                <h2>Please Confirm Patient Details</h2>
-                    <div class="ui stackable two column grid">
-                        <div class="column">
-                            <h3>Owner Information</h3>
-                            <ul id= "ownerDisplay">
-                               
-                            </ul> 
-                        </div>
-                        <div class="column">
-                            <h3>Pet Information</h3>
-                            <ul id="petDisplay">
-                                <li><strong>Name:</strong> <span id="petNameDisplay"></span></li>
-                                <li><strong>DOB:</strong> <span id="petDobDisplay"></span></li>
-                                <li><strong>Gender:</strong> <span id="petGenderDisplay"></span></li>
-                                <li><strong>Type:</strong> <span id="typeDisplay"></span></li>
-                                <li><strong>Breed:</strong> <span id="breedDisplay"></span></li>
-                                <li><strong>Color:</strong> <span id="colorDisplay"></span></li>
-                                <li><strong>Weight:</strong> <span id="weightDisplay"></span> lbs</li>
-                            </ul>  
-                        </div>
-                    </div>
-                <button class="ui right floated orange button">Submit</button>
+        <div id="confirmStep" class="disabled step">
+            <div class="content">
+                <div class="title">Confirm Details</div>
             </div>
-        </form>
+        </div>
     </div>
+    <div id="buttonsContainer">
+        <div id="newOrExisitngBtns" class="ui buttons">
+            <button id="addExistingBtn" class="ui button">Existing Owner</button>
+            <div class="or"></div>
+            <button id="addNewBtn" class="ui button">Add New Owner</button>
+        </div>
+    </div>
+    
+    <form class="ui form" action="/patients" method="POST">
+        <% include ../partials/ownerForms %>
+        <% include ../partials/patientForm %>
+        <div id="confirmPage" style="display:none">
+            <h2>Please Confirm Patient Details</h2>
+                <div class="ui stackable two column grid">
+                    <div class="column">
+                        <h3>Owner Information</h3>
+                        <ul id= "ownerDisplay">
+                            
+                        </ul> 
+                    </div>
+                    <div class="column">
+                        <h3>Pet Information</h3>
+                        <ul id="petDisplay">
+                            <li><strong>Name:</strong> <span id="petNameDisplay"></span></li>
+                            <li><strong>DOB:</strong> <span id="petDobDisplay"></span></li>
+                            <li><strong>Gender:</strong> <span id="petGenderDisplay"></span></li>
+                            <li><strong>Type:</strong> <span id="typeDisplay"></span></li>
+                            <li><strong>Breed:</strong> <span id="breedDisplay"></span></li>
+                            <li><strong>Color:</strong> <span id="colorDisplay"></span></li>
+                            <li><strong>Weight:</strong> <span id="weightDisplay"></span> lbs</li>
+                        </ul>  
+                    </div>
+                </div>
+            <button class="ui right floated orange button">Submit</button>
+        </div>
+    </form>
 
-    <% include ../partials/footer %>
+<% include ../partials/footer %>

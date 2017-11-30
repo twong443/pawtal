@@ -1,93 +1,87 @@
 <% include ../partials/header %>
 
-<div class="ui main container">
-    <h1>Start New Visit for <%= pet.name %></h1>
-    <form class="ui form" action="/patients/<%= pet._id %>" method="POST">
-        <div class="two fields">
-            <div class="field">
-                <label for="date">Date</label> 
-                <input type="date" name="date" placeholder="mm/dd/yy">
-            </div>            
-            <div class="field">
-                <label for="time">Time</label>
-                <input type="time" name="time" placeholder="">
+<h1>Start New Visit for <%= pet.name %></h1>
+<form class="ui form" action="/patients/<%= pet._id %>" method="POST">
+    <div class="two fields">
+        <div class="field">
+            <label for="date">Date</label> 
+            <input type="date" name="date" placeholder="mm/dd/yy">
+        </div>            
+        <div class="field">
+            <label for="time">Time</label>
+            <input type="time" name="time" placeholder="">
+        </div>
+    </div>
+    <div class="field">
+        <label for="reason">Reason for Visit</label>
+        <input type="text" name="reason">
+    </div>
+    <div class="field">
+        <label for="weight">Weight</label>
+        <div class="ui right labeled input">
+            <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
+            <div class="ui basic label">lbs</div>
+        </div>
+    </div>
+    <div class="field">
+        <div id="modalButton" class="ui green button">
+            Add Orders
+        </div>
+        <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+            Add Orders
+            </div>
+            <div class="content">
+                <input id="ordersInput" type="text" placeholder="Add New Order">
+                <input id="autocomplete-data" type="hidden">
+                <ul id="selectedOrders"></ul>
+            </div>
+            <div class="actions">
+                <div class="ui cancel button">Cancel</div>
+                <div class="ui approve button">OK</div>
             </div>
         </div>
-        <div class="field">
-            <label for="reason">Reason for Visit</label>
-            <input type="text" name="reason">
-        </div>
-        <div class="field">
-            <label for="weight">Weight</label>
-            <div class="ui right labeled input">
-                <input type="number" name="weight" placeholder="Weight" min="1" step=".5">
-                <div class="ui basic label">lbs</div>
-            </div>
-        </div>
-        <div class="field">
-            <div id="modalButton" class="ui green button">
-                Add Orders
-            </div>
-            <div class="ui modal">
-                <i class="close icon"></i>
-                <div class="header">
-                Add Orders
-                </div>
-                <div class="content">
-                    <input id="ordersInput" type="text" placeholder="Add New Order">
-                    <input id="order-data" type="hidden">
-                    <ul id="selectedOrders"></ul>
-                </div>
-                <div class="actions">
-                    <div class="ui cancel button">Cancel</div>
-                    <div class="ui approve button">OK</div>
-                </div>
-            </div>
-            <ul id="activeOrders">
+        <ul id="activeOrders">
 
-            </ul>
+        </ul>
+    </div>
+    <div class="field">
+        <label for="diagnosis">Diagnosis</label>
+        <input type="text" name="diagnosis" placeholder="Diagnosis">
+    </div>
+    <div class="field">
+        <label for="notes">Notes</label>
+        <input type="text" name="notes" placeholder="Notes">
+    </div>
+    <div class="field">
+        <label for="cost">Cost</label>
+        <div class="ui left labeled input">
+            <div class="ui basic label">$</div>
+            <input type="number" name="cost" placeholder="Cost" step=".01">            
         </div>
-        <div class="field">
-            <label for="diagnosis">Diagnosis</label>
-            <input type="text" name="diagnosis" placeholder="Diagnosis">
-        </div>
-        <div class="field">
-            <label for="notes">Notes</label>
-            <input type="text" name="notes" placeholder="Notes">
-        </div>
-        <div class="field">
-            <label for="cost">Cost</label>
-            <div class="ui left labeled input">
-                <div class="ui basic label">$</div>
-                <input type="number" name="cost" placeholder="Cost" step=".01">            
-            </div>
-        </div>
-        <button class="ui right floated green button" type="submit">
-            Submit
-        </button>
-    </form>
-</div>
-
+    </div>
+    <button class="ui right floated green button" type="submit">
+        Submit
+    </button>
+</form>
 
 <script>
-    var orders = [];
     // modal script
     $('#modalButton').on('click', function(){
         $('.ui.modal').modal({
-            closable  : false,
-            onDeny    : function(){
+            onDeny: function(){
                 $('.listedOrders').remove();
                 event.stopPropagation();
-                return false;
             },
-            onApprove : function() {
-                $('#activeOrders').html("");
+            onApprove: function() {
+                var orders = $('.orderData');
                 for(var i=0; i<orders.length; i++){
-                    var jsonOrder = JSON.parse(orders[i]);
-                    $('#activeOrders').append('<li>' + jsonOrder.name + '</li>');                                                
+                    var parseOrder = JSON.parse(orders[i].value);
+                    $('#activeOrders').append("<li>" + parseOrder.name + "<input class='approvedOrders' type='hidden' name ='orders' value='" + orders[i].value + "'></li>");
                 }
             },
-            onShow : function() {
+            onShow: function() {
                 $('#selectedOrders').html("");
             }
           })
@@ -103,7 +97,7 @@
         list: {
             onSelectItemEvent: function() {
                 var orderObject = $("#ordersInput").getSelectedItemData().order;
-                $("#order-data").val(JSON.stringify(orderObject)).trigger("change");
+                $("#autocomplete-data").val(JSON.stringify(orderObject)).trigger("change");
             },
             match: {
                 enabled: true
@@ -132,9 +126,10 @@
     $("#ordersInput").keypress(function(event){
         //"Enter" key has the character code of 13
         if(event.which === 13) {
-            orders.push($("#order-data").val());             
+            // orders.push($("#autocomplete-data").val()); 
+            var orderData = $("#autocomplete-data").val();            
             var orderText = $(this).val();
-            $("ul").append("<li class='listedOrders'><span><i class='fa fa-trash-o'></i></span> " + orderText + "</li>");
+            $("#selectedOrders").append("<li class='listedOrders'><span><i class='fa fa-trash-o'></i></span> " + orderText + "<input class='orderData' type='text' value='" + orderData + "'></li>");
             $(this).val("");
         }
     });

@@ -1,6 +1,5 @@
 <% include ../partials/header %>
 
-<div class="ui main container">
     <div class="content">
         <h2><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h2>
         <div class="description">
@@ -31,7 +30,6 @@
     <form class="delete-form" action="/patients/<%= pet._id %>?_method=DELETE" method="POST">
         <button class="tiny ui red button">DELETE</button>
     </form>
-</div>
 
 <script>
     var petId = $("#visitsInfo").attr("data-id");

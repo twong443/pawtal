@@ -73,8 +73,16 @@ var randomOrder = function(){
 
 function getBreeds(){
     var res = sr('GET', "https://dog.ceo/api/breeds/list");
-    var breed = JSON.parse(res.body);
-    return breed.message;
+    var parseBreeds = JSON.parse(res.body);
+    var initCapBreeds = [];
+    parseBreeds.message.forEach(function(breed){
+        initCapBreeds.push(titleCase(breed));
+    });
+    return initCapBreeds;
+}
+
+function titleCase(str) {
+    return str.replace(str[0], str[0].toUpperCase());
 }
 
 function getAvatar(){
