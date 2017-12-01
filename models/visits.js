@@ -13,6 +13,7 @@ var visitSchema = new mongoose.Schema({
     ],
     diagnosis: String,
     notes: String,
+    totalCost: Number,
     patient: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

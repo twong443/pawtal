@@ -1,3 +1,4 @@
+<a class="ui right floated blue button" href="/patients/<%= pet._id %>/visits/new">Start Visit</a>
 <h1>Visits for <%= pet.name %></h1>
 
 <table class="ui sortable selectable striped compact blue table" id="visitTable">
@@ -19,13 +20,14 @@
             <td><%= visit.reason %></td>
             <td><%= visit.diagnosis %></td>                
             <td><%= visit.weight %></td>   
-            <td><%= visit.cost %></td>
+            <td><%= visit.totalCost %></td>
         </tr>             
         <% }); %>
     </tbody>
 </table>
 
 <% var petId = pet._id; %>
+
 <script>
     var rowUrls = document.querySelectorAll(".rowUrl");
     rowUrls.forEach(function(row){
@@ -34,4 +36,7 @@
             window.location.assign("/patients/" + petId + "/visits/" + visitId);
         });
     });
+
+    // make table sortable;
+    $('table').tablesort();
 </script>

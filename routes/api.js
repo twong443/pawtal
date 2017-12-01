@@ -62,11 +62,16 @@ router.get("/alldogbreeds", function(req, res){
             var info = JSON.parse(body);
             var breeds = [];
             info.message.forEach(function(breed){
-                breeds.push({name: breed});
+                var initCapBreeds = titleCase(breed);
+                breeds.push({name: initCapBreeds});
             });
             res.send(breeds);
         }
     });
 });
+
+function titleCase(str) {
+    return str.replace(str[0], str[0].toUpperCase());
+}
 
 module.exports = router;

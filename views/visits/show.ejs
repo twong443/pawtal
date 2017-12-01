@@ -1,5 +1,45 @@
 <% include ../partials/header %>
 
-<h1>Visit Details for <%= pet.name %> on <%= visit.date %></h1>   
+<a class="ui gray button" href="/patients/<%= pet._id %>">Back to <%= pet.name %>'s Profile</a>
+
+<h1>Visit Details for <%= pet.name %> on <%= visit.date %></h1>
+
+<p>Date: <%= visit.date %></p>
+<p>Time: <%= visit.time %></p>
+<p>Reason for Visit: <%= visit.reason %></p>
+<p>Diagnosis: <%= visit.diagnosis %></p>
+<p>Weight: <%= visit.weight %> lbs</p>
+
+<h3>Orders</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% visit.orders.forEach(function(order){ %>
+        <tr>
+            <td><%= order.name %></td>
+            <td><%= order.type %></td>
+            <td><%= order.cost %></td>
+        </tr>
+        <% }); %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>           
+            <td><%= visit.totalCost %></td>
+        </tr>
+    </tfoot>
+</table>
+
+<a class="tiny ui orange button" href="/patients/<%= pet._id %>/visits/<%= visit._id %>/edit">EDIT</a> 
+<form class="delete-form" action="/patients/<%= pet._id %>/visits/<%= visit._id %>?_method=DELETE" method="POST">
+    <button class="tiny ui red button">DELETE</button>
+</form>
 
 <% include ../partials/footer %>

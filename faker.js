@@ -57,7 +57,7 @@ var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
         breed: patientBreed,
         color: colors[Math.floor(Math.random()*colors.length)],
         weight: faker.random.number({min:5, max:300}),
-        // lastVisited: formattedLastVisited,
+        lastVisited: formattedLastVisited,
         owner: petOwner,
         avatar: avatar
     }
