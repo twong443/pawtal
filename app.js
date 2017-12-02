@@ -3,6 +3,8 @@ var express     	= require("express"),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
     methodOverride 	= require("method-override"),
+    dotenv          = require("dotenv").config(),
+    dataUri         = require("datauri"),
     faker           = require("./faker");
 
 var apiRoutes       = require("./routes/api"),

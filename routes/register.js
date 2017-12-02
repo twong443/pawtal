@@ -2,10 +2,37 @@ var express = require("express");
 var router = express.Router();
 var states = require("datasets-us-states-names");
 var countries = require("country-list")();
+// var dataUri = require("datauri");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
 var register = require("../registration");
+//configure multer for image upload
+var multer = require("multer");
+//configure cloudinary
+var cloudinary = require("cloudinary");
+cloudinary.config({ 
+    cloud_name: "pawtal", 
+    api_key: "264442116924278", 
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+var storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, "./tmp/avatars")
+    },
+    filename: function(req, file, callback) {
+        callback(null, Date.now() + file.originalname);
+    }
+});
+// var memStorage = multer.memoryStorage();
+// var imageFilter = function (req, file, cb) {
+//     // accept image files only
+//     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+//         return cb(new Error("Only image files are allowed!"), false);
+//     }
+//     cb(null, true);
+// };
+var upload = multer({ storage: storage }); //fileFilter: imageFilter
 
 // NEW ROUTE
 router.get("/register", function(req, res){
@@ -63,35 +90,18 @@ router.post("/register/patient", function(req, res){
     res.redirect("/register/patient");
 });
 
-router.post("/register/confirm", function(req, res){
-    //patient properties
-    var name = req.body.name,
-        dob = req.body.dob,
-        gender = req.body.gender,
-        type = req.body.type,
-        breed = req.body.breed,
-        color = req.body.color,
-        weight = req.body.weight,
-        avatar = req.body.avatar;
-    var newPatient = {
-        name: name,
-        dob: dob,
-        gender: gender,
-        type: type,
-        breed: breed,
-        color: color,
-        weight: weight,
-        avatar: avatar,
-        owner: register.owner
-    }
-    register.patient = newPatient;  
-    res.redirect("/register/confirm");
+router.post("/register/confirm", upload.single("avatar"), function(req, res){
+    console.log(req.file.path);
+    cloudinary.uploader.upload(req.file.path, function(result){
+        req.body.pet.avatar = result.secure_url;
+        register.patient = req.body.pet;  
+        res.redirect("/register/confirm");
+    });
 });
 
 //CREATE - create new patient
-router.post("/patients", function(req, res){   
+router.post("/patients", function(req, res){
     if(register.owner._id) {
-        // console.log("owner exists");
         register.patient.owner = {
             id: register.owner._id,
             firstName: register.owner.firstName,
