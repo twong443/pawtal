@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
     <h1>Edit Details for <%= pet.name %></h1>
-    <form class="ui form" action="/patients/<%= pet._id %>/?_method=PUT" method="POST">
+    <form class="ui form" action="/patients/<%= pet._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
         <div id="patientForm">
             <div class="three fields">
                 <div class="field">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="field">
                     <label for="avatar">Avatar</label>
-                    <input type="file" name="pet[avatar]" placeholder="Pet Avatar">
+                    <input type="file" id="avatar" name="avatar" accept="image/*" placeholder="Pet Avatar">
                 </div>
             </div>
             <div class="field">

@@ -2,10 +2,10 @@ var express = require("express");
 var router = express.Router();
 var states = require("datasets-us-states-names");
 var countries = require("country-list")();
+var multer = require("../multer");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
-// var register = require("./registration");
 
 //INDEX ROUTE - show all patients
 router.get("/", function(req, res){
@@ -50,14 +50,42 @@ router.get("/:id/edit", function(req, res){
 });
 
 // UPDATE
-router.put("/:id", function(req, res){
-    Patient.findByIdAndUpdate(req.params.id, req.body.pet, function(err, updatedPatient){
-        if(err){
-            console.log(err);
-        } else {
-            res.redirect("/patients/" + req.params.id);
-        }
-    });
+router.put("/:id", multer.upload.single("avatar"), function(req, res){
+    if(req.file === undefined){
+        Patient.findByIdAndUpdate(req.params.id, req.body.pet, function(err, updatedPatient){
+            if(err){
+                console.log(err);
+            } else {
+                res.redirect("/patients/" + req.params.id);
+            }
+        });
+    } else {
+        Patient.findById(req.params.id, function(err, foundPatient){
+            if(err || !foundPatient){
+                console.log(err);
+            } else if (foundPatient.avatar && foundPatient.avatar.length > 0) {
+                var avatar = foundPatient.avatar;
+                multer.cloudinary.uploader.destroy(avatar, function(err, deletedAvatar){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(deletedAvatar);
+                    }
+                });
+            } 
+            multer.cloudinary.uploader.upload(req.file.path, function(result){
+                req.body.pet.avatar = result.secure_url;
+                foundPatient.set(req.body.pet);
+                foundPatient.save(function(err){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.redirect("/patients/" + req.params.id)
+                    }
+                })
+            });
+        });
+    }    
 });
 
 //DESTROY
