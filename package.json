@@ -38,6 +38,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "semantic-ui": "^2.2.13",
-    "sync-request": "^4.1.0"
+    "sync-request": "^4.1.0",
+    "url": "^0.11.0"
   }
 }

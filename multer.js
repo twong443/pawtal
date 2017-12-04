@@ -9,6 +9,7 @@ var storage = multer.diskStorage({
         callback(null, Date.now() + file.originalname);
     }
 });
+
 var upload = multer({storage: storage}); //fileFilter: imageFilter
 
 //configure cloudinary
@@ -26,7 +27,19 @@ cloudinary.config({
 //     cb(null, true);
 // };
 
+function destroyFromCloudinary(image){
+    var filename = image.split("/").pop();
+    var publicId = filename.split(".").shift();
+    cloudinary.uploader.destroy(publicId, function(err, result){
+        if(err){
+            console.log(err);
+        } else {
+        }
+    });
+}
+
 module.exports = {
     upload: upload,
-    cloudinary: cloudinary
+    cloudinary: cloudinary,
+    destroyFromCloudinary: destroyFromCloudinary
 }

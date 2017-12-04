@@ -3,6 +3,7 @@ var router = express.Router();
 var states = require("datasets-us-states-names");
 var countries = require("country-list")();
 var multer = require("../multer");
+var url = require("url");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
@@ -64,14 +65,7 @@ router.put("/:id", multer.upload.single("avatar"), function(req, res){
             if(err || !foundPatient){
                 console.log(err);
             } else if (foundPatient.avatar && foundPatient.avatar.length > 0) {
-                var avatar = foundPatient.avatar;
-                multer.cloudinary.uploader.destroy(avatar, function(err, deletedAvatar){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(deletedAvatar);
-                    }
-                });
+                multer.destroyFromCloudinary(foundPatient.avatar);
             } 
             multer.cloudinary.uploader.upload(req.file.path, function(result){
                 req.body.pet.avatar = result.secure_url;
@@ -80,7 +74,7 @@ router.put("/:id", multer.upload.single("avatar"), function(req, res){
                     if(err){
                         console.log(err);
                     } else {
-                        res.redirect("/patients/" + req.params.id)
+                        res.redirect("/patients/" + req.params.id);
                     }
                 })
             });
@@ -93,15 +87,16 @@ router.delete("/:id", function(req, res){
 	Patient.findByIdAndRemove(req.params.id, function(err, foundPatient){
         if(err){
             res.redirect("back");
-        } else {
-            Appt.find({'patient.id': foundPatient._id}).remove(function(err){
-                if(err){
-                    console.log(err);
-                } else {
-                    res.redirect("/patients");                    
-                }
-            });
-        }
+        } else if (foundPatient.avatar && foundPatient.avatar.length > 0) {
+            multer.destroyFromCloudinary(foundPatient.avatar);
+        } 
+        Appt.find({'patient.id': foundPatient._id}).remove(function(err){
+            if(err){
+                console.log(err);
+            } else {
+                res.redirect("/patients");                    
+            }
+        });
     });
 });
 
