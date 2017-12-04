@@ -27,9 +27,9 @@
     <form class="ui form" action="/register/patient" method="POST">
         <div id="existingOwnerForm" style="display:none">
             <div class="field">
-                <label for="owner">Owner</label>
+                <label for="existingOwner">Owner</label>
                 <input id="ownersDb" type="text" placeholder="Owner">
-                <input id="owner-data" type="hidden" name="owner">
+                <input id="owner-data" type="hidden" name="existingOwner">
             </div>
         </div>
         <div id="newOwnerForm">
@@ -37,10 +37,10 @@
                 <label>Name</label>
                 <div class="two fields">
                     <div class="field">
-                        <input type="text" name="firstName" placeholder="First Name">
+                        <input type="text" name="owner[firstName]" placeholder="First Name">
                     </div>
                     <div class="field">
-                        <input type="text" name="lastName" placeholder="Last Name">
+                        <input type="text" name="owner[lastName]" placeholder="Last Name">
                     </div>
                 </div>
             </div>
@@ -48,22 +48,22 @@
                 <label>Address</label>
                 <div class="fields">
                     <div class="twelve wide field">
-                        <input type="text" name="streetAddress" placeholder="Street Address">
+                        <input type="text" name="address[street]" placeholder="Street Address">
                     </div>
                     <div class="four wide field">
-                        <input type="text" name="secondAddress" placeholder="Apt #">
+                        <input type="text" name="address[secondAddress]" placeholder="Apt #">
                     </div>
                 </div>
             </div>
             <div class="three fields">
                 <div class="field">
                     <label for="city">City</label>
-                    <input type="text" name="city" placeholder="City">
+                    <input type="text" name="address[city]" placeholder="City">
                 </div>
                 <div class="field">
                     <label>State</label>
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="state" placeholder="State">
+                        <input type="hidden" name="address[state]" placeholder="State">
                         <i class="dropdown icon"></i>
                         <div class="default text">State</div>
                         <div class="menu">
@@ -75,12 +75,12 @@
                 </div>
                 <div class="field">
                     <label for="zipCode">Zip Code</label>
-                    <input type="text" name="zipCode" placeholder="Zip Code">
+                    <input type="text" name="address[zipCode]" placeholder="Zip Code">
                 </div>
                 <div class="field">
                     <label>Country</label>
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="country" placeholder="Country">
+                        <input type="hidden" name="address[country]" placeholder="Country">
                         <i class="dropdown icon"></i>
                         <div class="default text">Country</div>
                         <div class="menu">
@@ -94,11 +94,11 @@
             <div class="two fields">
                 <div class="required field">
                     <label>Phone</label>
-                    <input type="tel" name="phone" placeholder="Phone #">
+                    <input type="tel" name="owner[phone]" placeholder="Phone #">
                 </div>
                 <div class="field">
                     <label>Email</label>
-                    <input type="email" name="email" placeholder="jane@doe.com">
+                    <input type="email" name="owner[email]" placeholder="jane@doe.com">
                 </div>
             </div>
         </div>

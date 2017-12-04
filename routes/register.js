@@ -30,36 +30,12 @@ router.get("/register/confirm", function(req,res){
 
 router.post("/register/patient", function(req, res){
     // existing owner properties
-    if(req.body.owner.length > 0){
-        register.owner = JSON.parse(req.body.owner);
+    if(req.body.existingOwner.length > 0){
+        register.owner = JSON.parse(req.body.existingOwner);
     } else {
         //new owner properties
-        var firstName = req.body.firstName,
-            lastName = req.body.lastName,
-            phone = req.body.phone,
-            email = req.body.email,        
-            streetAddress = req.body.streetAddress,
-            secondAddress = req.body.secondAddress,
-            city = req.body.city,
-            state = req.body.state,
-            zipCode = req.body.zipCode,
-            country = req.body.country;
-
-        var newOwner = {
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone,
-            email: email,
-            address: {
-                street: streetAddress,
-                secondAddress: secondAddress,
-                city: city,
-                state: state,
-                zipCode: zipCode,
-                country: country
-            }
-        };
-        register.owner = newOwner;
+        register.owner = req.body.owner;  
+        register.owner.address = req.body.address; 
     }
     res.redirect("/register/patient");
 });
