@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var states = require("datasets-us-states-names");
 var countries = require("country-list")();
+var multer = require("../multer");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
@@ -73,6 +74,9 @@ router.delete("/:id", function(req, res){
                     res.redirect("back");
                 } else {
                     foundPatients.forEach(function(foundPatient){
+                        if (foundPatient.avatar && foundPatient.avatar.length > 0) {
+                            multer.destroyFromCloudinary(foundPatient.avatar);
+                        }
                         Appt.find({'patient.id': foundPatient._id}, function(err, foundAppts){
                             if(err){
                                 console.log(err);
