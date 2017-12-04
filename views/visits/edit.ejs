@@ -74,7 +74,7 @@
                 var orders = $('.orderData');
                 for(var i=0; i<orders.length; i++){
                     var parseOrder = JSON.parse(orders[i].value);
-                    $('#activeOrders').append("<li>" + parseOrder.name + "<input class='approvedOrders' type='text' name ='orders' value='" + orders[i].value + "'></li>");
+                    $('#activeOrders').append("<li>" + parseOrder.name + "<input class='approvedOrders' type='hidden' name ='orders' value='" + orders[i].value + "'></li>");
                 }
             },
             onShow: function() {

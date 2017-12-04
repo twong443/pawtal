@@ -66,17 +66,7 @@ router.post("/patients/:id", function(req, res){
             diagnosis = req.body.diagnosis,
             notes = req.body.notes;
         var parseOrders = [];
-        var costArr = [];
-        var totalCostOfOrders = 0;
-        if (orders && orders != undefined){
-            orders.forEach(function(order){          
-                parseOrders.push(JSON.parse(order));
-            });
-            parseOrders.forEach(function(order){
-                costArr.push(order.cost);            
-            });
-            totalCostOfOrders = costArr.reduce(add, 0);  
-        }
+        var totalCost = calcOrders(orders, parseOrders);
         var newVisit = {
             date: date,
             time: time,
@@ -85,7 +75,7 @@ router.post("/patients/:id", function(req, res){
             orders: parseOrders,
             diagnosis: diagnosis,
             notes: notes,
-            totalCost: totalCostOfOrders,
+            totalCost: totalCost,
             patient: {
                 id: foundPatient._id,
                 name: foundPatient.name
@@ -131,20 +121,10 @@ router.put("/patients/:id/visits/:visit_id", function(req, res){
             console.log(err);
         } else {
             var orders = req.body.orders;
-            var totalCostOfOrders = 0;
-            var parseOrders = [];
-            var costArr = [];
-            if (orders && orders != undefined){
-                orders.forEach(function(order){          
-                    parseOrders.push(JSON.parse(order));
-                });
-                parseOrders.forEach(function(order){
-                    costArr.push(order.cost);            
-                });
-                totalCostOfOrders = costArr.reduce(add, 0);  
-            }
+            var parseOrders = []; 
+            var totalCost = calcOrders(orders, parseOrders);
             foundVisit.orders= parseOrders;
-            foundVisit.totalCost= totalCostOfOrders;
+            foundVisit.totalCost= totalCost;
             foundVisit.save();
         }
     });
@@ -170,6 +150,24 @@ router.delete("/patients/:id/visits/:visit_id", function(req, res){
 
 function add(a, b){
     return a + b;
+}
+
+function calcOrders(orders, parseOrders, totalCostOfOrders){
+    var costArr = [];
+    var totalCostOfOrders = 0;
+    if (orders && orders != undefined){
+        if(Array.isArray(orders) === true) {
+            orders.forEach(function(order){      
+                parseOrders.push(JSON.parse(order));
+            });
+        } else {
+            parseOrders.push(JSON.parse(orders));                
+        }
+        parseOrders.forEach(function(order){
+            costArr.push(order.cost);            
+        });
+        return totalCostOfOrders = costArr.reduce(add, 0);
+    }
 }
 
 module.exports = router;

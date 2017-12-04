@@ -5,6 +5,7 @@ var countries = require("country-list")();
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
+var Visit = require("../models/visits");
 
 // INDEX
 router.get("/", function(req, res){
@@ -79,6 +80,16 @@ router.delete("/:id", function(req, res){
                             } else {
                                 foundAppts.forEach(function(foundAppt){
                                     foundAppt.remove();                                    
+                                });
+                            }
+                        });
+                        Visit.find({'patient.id': foundPatient._id}, function(err, foundVisits){
+                            if(err){
+                                console.log(err);
+                                res.redirect("back");
+                            } else {
+                                foundVisits.forEach(function(foundVisit){
+                                    foundVisit.remove();                                    
                                 });
                             }
                         });

@@ -7,6 +7,7 @@ var url = require("url");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
+var Visit = require("../models/visits");
 
 //INDEX ROUTE - show all patients
 router.get("/", function(req, res){
@@ -89,12 +90,18 @@ router.delete("/:id", function(req, res){
             res.redirect("back");
         } else if (foundPatient.avatar && foundPatient.avatar.length > 0) {
             multer.destroyFromCloudinary(foundPatient.avatar);
-        } 
+        }
         Appt.find({'patient.id': foundPatient._id}).remove(function(err){
             if(err){
                 console.log(err);
             } else {
-                res.redirect("/patients");                    
+                Visit.find({'patient.id': foundPatient._id}).remove(function(err){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.redirect("/patients");                    
+                    }
+                });            
             }
         });
     });
