@@ -1,22 +1,21 @@
 var mongoose = require("mongoose");
 
-var billingSchema = new mongoose.Schema({
-    orders: [
+var transactionSchema = new mongoose.Schema({
+    visit: [
         {
             id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "OrderCatalog"
+                ref: "Visit"
             },
-            cost: String
+            date: String,
+            time: String,
+            totalCost: Number
         }
     ],
-    visit: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Visit"
-        },
-        date: String,
-        time: String
+    balance: Number,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Patient"
     }
 });
 

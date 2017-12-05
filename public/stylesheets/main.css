@@ -1,7 +1,13 @@
+/* main css */
 .main {
     margin-top: 100px;
 }
 
+.delete-form {
+    display: inline;
+}
+
+/* index pages for patients, owners, and visits */
 .rowUrl {
     cursor: pointer;
 }
@@ -10,20 +16,12 @@
     padding: 15px;
 }
 
+/* register owner page */
 #buttonsContainer {
     text-align: center;
 }
 
-.ui.tab {
-    background: none;
-    color: black;
-}
-
-.delete-form {
-    display: inline;
-}
-
-/* on confirmation page */
+/* register confirmation page */
 #apptCheckbox {
     float: right;
     margin: 5px;
