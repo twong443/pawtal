@@ -14,7 +14,7 @@
     <p>Last Visited <%= pet.lastVisited %></p>
 </div>
 
-<h4 class="ui horizontal clearing divider header"><i class="ui user icon"></i>Client Details</h4>
+<h4 class="ui horizontal clearing divider header"><i class="user icon"></i>Client Details</h4>
 
 <div id="ownerDetails">
     <h4><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h4>
@@ -28,15 +28,25 @@
         
 </div>
 
-<h4 class="ui horizontal clearing divider header"><i class="ui heartbeat icon"></i>Visit Details</h4>
+<h4 class="ui horizontal clearing divider header"><i class="calendar icon"></i>Upcoming Appointments</h4>
+
+<div id="apptInfo" data-id="<%= pet._id %>">
+</div>
+
+<h4 class="ui horizontal clearing divider header"><i class="heartbeat icon"></i>Visit Details</h4>
     
 <div id="visitsInfo" data-id="<%= pet._id %>">
 </div>
+
+<a class="ui button" href="/patients">View All Patients</a>
 
 <script>
     var petId = $("#visitsInfo").attr("data-id");
     $.get("/patients/" + petId +"/visits", function(data){
         $("#visitsInfo").html(data);
+    });
+    $.get("/patients/" + petId +"/appointments", function(data){
+        $("#apptInfo").html(data);
     });
 </script>
 

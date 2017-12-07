@@ -1,18 +1,36 @@
 <% include ../partials/header %>
 
-    <h1>This is the show page for <%= owner.firstName %></h1>
-    <p><%= owner.address.street %> <%= owner.address.secondAddress %> <%= owner.address.city %> <%= owner.address.state %> <%= owner.address.zipCode %> <%= owner.address.country %></p>
-    <% pets.forEach(function(pet){ %>
-        <a href="/patients/<%= pet._id %>">
-            <div>
-                <img src="<%= pet.avatar %>" alt="">
-                <p><%= pet.name %></p>
-            </div>
+<div id="ownerDetails">
+    <div id="editDeleteBtns">                
+        <a class="tiny ui orange button" href="/owners/<%= owner._id %>/edit">EDIT</a> 
+        <form class="delete-form" action="/owners/<%= owner._id %>?_method=DELETE" method="POST">
+            <button class="tiny ui red button">DELETE</button>
+        </form>
+    </div>
+    <h2><%= owner.firstName %> <%= owner.lastName %></h2>
+    <div id="ownerFloatRight">
+        <p><%= owner.phone %>
+        <br><%= owner.email %></p>
+    </div>
+    <p><%= owner.address.street %> <%= owner.address.secondAddress %>
+    <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
+    <br><%= owner.address.country %></p>
+</div>
+
+<h4 class="ui horizontal clearing divider header"><i class="paw icon"></i><%= owner.firstName %>'s Registered Pets</h4>
+
+<div class="ui stackable cards">
+    <% pets.forEach(function(pet){ %>      
+    <div class="card">
+        <a class="image" href="/patients/<%= pet._id %>">
+            <img src="<%= pet.avatar %>" alt="<%= pet.name %>">                 
         </a>
+        <div class="content">
+            <a class="header" href="/patients/<%= pet._id %>"><%= pet.name %></a>
+        </div>
+    </div>
     <% }); %>
-    <a class="tiny ui orange button" href="/owners/<%= owner._id %>/edit">EDIT</a> 
-    <form class="delete-form" action="/owners/<%= owner._id %>?_method=DELETE" method="POST">
-        <button class="tiny ui red button">DELETE</button>
-    </form>
+</div>
+
 
 <% include ../partials/footer %>

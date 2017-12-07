@@ -2,7 +2,7 @@ var express     	= require("express"),
     app         	= express(),
     bodyParser  	= require("body-parser"),
     mongoose    	= require("mongoose"),
-    methodOverride 	= require("method-override"),
+    methodOverride 	= require("method-override"),   
     dotenv          = require("dotenv").config(),
     faker           = require("./faker");
 
@@ -12,7 +12,7 @@ var apiRoutes       = require("./routes/api"),
     registerRoutes  = require("./routes/register"),
     visitRoutes     = require("./routes/visits"),
     apptRoutes      = require("./routes/appointments");
-
+    
 var port = process.env.PORT || "8080"
 
 var url = process.env.DATABASEURL || "mongodb://localhost/pawtal"

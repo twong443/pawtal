@@ -84,6 +84,23 @@ router.put("/:id", multer.upload.single("avatar"), function(req, res){
     }    
 });
 
+//RENDER LIST OF APPTS FOR ONE PATIENT
+router.get("/:id/appointments", function(req, res){
+    Patient.findById(req.params.id, function(err, foundPatient){
+        if(err || !foundPatient){
+            console.log(err);
+        } else {
+            Appt.find({'patient.id': foundPatient._id}, null, {sort: {"date": 1, "time": 1}}, function(err, foundAppts){
+                if(err){
+                    console.log(err);
+                } else {
+                    res.render("appointments/petindex", {appts: foundAppts, pet: foundPatient});  
+                }                             
+            });
+        }
+    });
+});
+
 //DESTROY
 router.delete("/:id", function(req, res){
 	Patient.findByIdAndRemove(req.params.id, function(err, foundPatient){

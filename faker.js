@@ -2,9 +2,11 @@ var faker       = require("faker"),
     request     = require("request"),
     sr          = require("sync-request"),
     moment      = require("moment"),   
-    petNames    = require("dog-names"), 
+    petNames    = require("dog-names"),
     Patient     = require("./models/patients"),
     Owner       = require("./models/owners"),
+    Visit       = require("./models/visits"),
+    Appt        = require("./models/appointments"),
     Order       = require("./models/orderCatalog");
 
 var sex         = ['Female', 'Male'],
@@ -38,16 +40,18 @@ var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
     var formattedLastVisited = moment(faker.date.past()).format('YYYY-MM-DD');
     var patientType = species[Math.floor(Math.random()*species.length)];
     var patientBreed = "";
-    var avatar = getAvatar();
+    var avatar = "";
     var petOwner = {
         id: ownerId,
         firstName: ownerFirstName,
         lastName: ownerLastName
     }
     if(patientType === 'Dog'){
-        patientBreed = dogBreed[Math.floor(Math.random()*dogBreed.length)]
+        patientBreed = dogBreed[Math.floor(Math.random()*dogBreed.length)];
+        avatar = getDogAvatar();
     } else {
-        patientBreed = catBreed[Math.floor(Math.random()*catBreed.length)]
+        patientBreed = catBreed[Math.floor(Math.random()*catBreed.length)];
+        avatar = getDogAvatar();
     }
     return {
         name: petNames.allRandom(),
@@ -85,7 +89,7 @@ function titleCase(str) {
     return str.replace(str[0], str[0].toUpperCase());
 }
 
-function getAvatar(){
+function getDogAvatar(){
     var res = sr('GET', "https://dog.ceo/api/breeds/image/random");
     var avatar = JSON.parse(res.body);
     return avatar.message;
@@ -101,23 +105,33 @@ function seedDB(){
             if(err){
                 console.log(err);
             }
-            for(var i=0; i<25; i++){
-                Owner.create(randomOwner(), function(err, owner){
+            Visit.remove({}, function(err){
+                if(err){
+                    console.log(err);
+                }
+                Appt.remove({}, function(err){
                     if(err){
                         console.log(err);
-                    } else{
-                        // console.log("added owners");
-                        var pet = randomPet(owner.id, owner.firstName, owner.lastName);
-                        Patient.create(pet, function(err, patient){
+                    }
+                    for(var i=0; i<25; i++){
+                        Owner.create(randomOwner(), function(err, owner){
                             if(err){
                                 console.log(err);
                             } else{
-                                // console.log(patient);
+                                // console.log("added owners");
+                                var pet = randomPet(owner.id, owner.firstName, owner.lastName);
+                                Patient.create(pet, function(err, patient){
+                                    if(err){
+                                        console.log(err);
+                                    } else{
+                                        // console.log(patient);
+                                    }
+                                });
                             }
                         });
                     }
                 });
-            }
+            });
         });
     });
 }

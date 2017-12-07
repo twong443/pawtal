@@ -14,7 +14,7 @@ router.get("/patients/:id/visits", function(req, res){
         if(err || !foundPatient){
             console.log(err);
         } else {
-            Visit.find({'patient.id': foundPatient._id}, function(err, foundVisits){
+            Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}, function(err, foundVisits){
                 if(err){
                     console.log(err);
                 } else {

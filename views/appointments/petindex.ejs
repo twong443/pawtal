@@ -1,0 +1,41 @@
+<a class="ui right floated blue button" href="/appointments/new">Make Appointment</a>
+
+<% if (!appts || appts.length < 1) { %>
+    <p><%= pet.name %> has no upcoming appointments.</p>
+<% } else { %>
+
+<table class="ui sortable selectable striped compact blue table" id="apptTable">
+    <thead>
+        <tr id="theader">                     
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% appts.forEach(function(appt){ %>
+        <tr class="rowUrl" data-id="<%= appt._id %>">     
+            <td><%= appt.date %></td>                
+            <td><%= appt.time %></td>                
+            <td><%= appt.reason %></td>
+        </tr>             
+        <% }); %>
+    </tbody>
+</table>
+<% } %>
+
+
+<% var petId = pet._id; %>
+
+<script>
+    var rowUrls = document.querySelectorAll(".rowUrl");
+    rowUrls.forEach(function(row){
+        var visitId = row.attributes[1].textContent;
+        row.addEventListener("click", function(){          
+            window.location.assign("/appointments");
+        });
+    });
+
+    // make table sortable;
+    $('table').tablesort();
+</script>

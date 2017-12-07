@@ -1,5 +1,8 @@
 <a class="ui right floated blue button" href="/patients/<%= pet._id %>/visits/new">Start Visit</a>
-<h1>Visits for <%= pet.name %></h1>
+
+<% if (!visits || visits.length < 1) { %>
+    <p><%= pet.name %> has no visit history.</p>
+<% } else { %>
 
 <table class="ui sortable selectable striped compact blue table" id="visitTable">
     <thead>
@@ -7,8 +10,8 @@
             <th>Date</th>
             <th>Time</th>
             <th>Reason</th>
-            <th>Diagnosis</th>                    
-            <th>Weight</th>                   
+            <th>Diagnosis</th>   
+            <th>Weight</th>
             <th>Cost</th>
         </tr>
     </thead>
@@ -25,6 +28,8 @@
         <% }); %>
     </tbody>
 </table>
+<% } %>
+
 
 <% var petId = pet._id; %>
 
