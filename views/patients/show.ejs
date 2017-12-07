@@ -1,35 +1,37 @@
 <% include ../partials/header %>
+<div id="petDetails">
+    <div class="avatar-content ui left floated image">
+        <img src="<%= pet.avatar %>" alt="<%= pet.name %>'s avatar">                
+    </div>
+    <div id="editDeleteBtns">
+        <a class="tiny ui orange button" href="/patients/<%= pet._id %>/edit">EDIT</a> 
+        <form class="delete-form" action="/patients/<%= pet._id %>?_method=DELETE" method="POST">
+            <button class="tiny ui red button">DELETE</button>
+        </form>
+    </div>
+    <h2><%= pet.name %></h2>
+    <p><i class="paw icon"></i> <%= pet.type %>&emsp;|&emsp;<%= pet.breed %>&emsp;|&emsp;<%= pet.dob %>&emsp;|&emsp;<%= pet.gender %>&emsp;|&emsp;<%= pet.color %>&emsp;|&emsp;<%= pet.weight %> lbs</p>
+    <p>Last Visited <%= pet.lastVisited %></p>
+</div>
 
-    <div class="content">
-        <h2><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h2>
-        <div class="description">
-                <p><%= owner.address.street %> <%= owner.address.secondAddress %>
-                <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
-                <br><%= owner.address.country %></p>
-            <p><%= owner.phone %></p>
-            <p><%= owner.email %></p>
-            <p><strong>Total Balance: </strong>$<%= owner.balance %></p>
+<h4 class="ui horizontal clearing divider header"><i class="ui user icon"></i>Client Details</h4>
+
+<div id="ownerDetails">
+    <h4><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h4>
+        <div id="ownerFloatRight">
+            <p><%= owner.phone %>
+            <br><%= owner.email %></p>
         </div>
-    </div>
-    <div class="content">
-        <h2><a class="header"><%= pet.name %></a></h2>
-        <p><i class="paw icon"></i> <%= pet.type %>/ <%= pet.breed %></p>
-        <div class="description">
-            <p><strong>DOB: </strong><%= pet.dob %></p>
-            <p><strong>Gender: </strong><%= pet.gender %></p>
-            <p><strong>Color: </strong><%= pet.color %></p>
-            <p><strong>Weight: </strong><%= pet.weight %> lbs</p>
-            <p>Last Visited <%= pet.lastVisited %></p>
-        </div>
-    </div>
+        <p><%= owner.address.street %> <%= owner.address.secondAddress %>
+        <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
+        <br><%= owner.address.country %></p>
+        
+</div>
+
+<h4 class="ui horizontal clearing divider header"><i class="ui heartbeat icon"></i>Visit Details</h4>
     
-    <div id="visitsInfo" data-id="<%= pet._id %>">
-    </div>
-
-    <a class="tiny ui orange button" href="/patients/<%= pet._id %>/edit">EDIT</a> 
-    <form class="delete-form" action="/patients/<%= pet._id %>?_method=DELETE" method="POST">
-        <button class="tiny ui red button">DELETE</button>
-    </form>
+<div id="visitsInfo" data-id="<%= pet._id %>">
+</div>
 
 <script>
     var petId = $("#visitsInfo").attr("data-id");

@@ -54,11 +54,12 @@
     box-shadow: none;
 }
 
-/* responsive square images */
+/* responsive circle images */
 .field-content {
     width:10%;
     padding-bottom:10%;
     border-radius: 50%;
+    border: 1px solid #dcdee2;
     margin:auto;
     overflow:hidden;
     position:relative;
@@ -71,6 +72,43 @@
     min-width:100%;
     min-height:100%;
 }
+
+/* Patient Show Page */
+#editDeleteBtns {
+    float: right;
+}
+#petDetails {
+    margin: 0 auto;
+    width: 60%;
+}
+#ownerDetails {
+    margin: 0 auto;
+    width: 60%;
+}
+#ownerFloatRight {
+    float: right;
+}
+
+/* responsive circle images */
+.avatar-content {
+    width:20%;
+    padding-bottom:20%;
+    border-radius: 50%;
+    border: 1px solid #dcdee2;
+    margin:auto;
+    overflow:hidden;
+    position:relative;
+    background:#000
+}
+
+.avatar-content img {
+   position:absolute;
+   width:20%;
+    min-width:100%;
+    min-height:100%;
+}
+
+
 
 /* create pagination buttons */
 /* input[type="button"] {
