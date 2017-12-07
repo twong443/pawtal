@@ -46,7 +46,8 @@ router.post("/register/confirm", multer.upload.single("avatar"), function(req, r
         res.redirect("/register/confirm");
     } else {
         multer.cloudinary.uploader.upload(req.file.path, function(result){
-            req.body.pet.avatar = result.secure_url;
+            var croppedAvatar = multer.cropImage(result.secure_url);
+            req.body.pet.avatar = croppedAvatar;
             register.patient = req.body.pet;  
             res.redirect("/register/confirm");
         });

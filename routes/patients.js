@@ -69,7 +69,8 @@ router.put("/:id", multer.upload.single("avatar"), function(req, res){
                 multer.destroyFromCloudinary(foundPatient.avatar);
             } 
             multer.cloudinary.uploader.upload(req.file.path, function(result){
-                req.body.pet.avatar = result.secure_url;
+                var croppedAvatar = multer.cropImage(result.secure_url);
+                req.body.pet.avatar = croppedAvatar;
                 foundPatient.set(req.body.pet);
                 foundPatient.save(function(err){
                     if(err){

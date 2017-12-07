@@ -6,12 +6,12 @@ var Appt = require("../models/appointments");
 
 // READ ALL & SHOW
 router.get("/", function(req, res){
-    Appt.find({}, ["date", "time", "patient"], {sort: {"date": 1, "time": 1}}, function(err, allAppts){
+    Appt.find({}, null, {sort: {"date": 1, "time": 1}}, function(err, allAppts){
         if(err){
             console.log(err);
             res.redirect(back);
         } else {
-            res.render("appointments/index", {appts: allAppts});
+            res.render("appointments/index", {appts: allAppts});            
         }
     });
 });
@@ -36,7 +36,8 @@ router.post("/", function(req, res){
         notes: notes,
         patient: {
             id: patient._id,
-            name: patient.name
+            name: patient.name,
+            avatar: patient.avatar
         }
     }
     if(req.body.date < getTodayDate()){

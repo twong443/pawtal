@@ -2,31 +2,39 @@
 
 <div class="ui grid">
     <div class="four wide column">
-        <a class="ui blue button" href="/appointments/new"><i class="plus icon"></i> New Appointment</a>
-        <div class="ui vertical fluid menu">
+        <div class="ui left vertical fluid menu">
+            <a class="item" href="/appointments/new"><i class="plus icon"></i> New Appointment</a>
+            <div class="item"><strong>Today, 2017/12/7</strong></div>
             <% appts.forEach(function(appt){ %>
-                <div class="item apptTabItem" data-tab="<%= appt._id %>">
+                <a class="item apptTabItem" data-tab="<%= appt._id %>">
                     <h4 class="ui header"><%= appt.patient.name %></h4>
                     <p><%= appt.date %> <%= appt.time %></p>
-                </div>
+                </a>
             <% }); %>
-        </div> 
+        </div>
     </div>
     <div class="twelve wide stretched column apptPatientInfo">
     </div>
 </div>
 
 <script>
-    // tabbed menu
-    // $('.menu .item').tab();
+    // Display most recent appointment on window load
+    var firstTabId= $(".apptTabItem")[0].getAttribute("data-tab");
+    $( window ).on("load", function() {
+        loadPetInfo(firstTabId); 
+    });
+
     // Get patient info and display on click
     $(".apptTabItem").on("click", function(){
         var apptId = $(this).attr("data-tab");
-
-        $.get("/appointments/" + apptId, function(data){
+        loadPetInfo(apptId);        
+    });
+    
+    function loadPetInfo(id){
+        $.get("/appointments/" + id, function(data){
             $(".apptPatientInfo").html(data);
         });
-    });
+    }
 </script>
 
 <% include ../partials/footer %>

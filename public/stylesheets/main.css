@@ -27,6 +27,51 @@
     margin: 5px;
 }
 
+/* Appointment Show Page */
+#petName {
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+
+#petDetails {
+    vertical-align: middle;
+}
+
+#visitButton {
+    margin-top: 20px;
+}
+
+#apptDateTime {
+    color: gray;
+}
+
+.ui.fitted.divider {
+    margin: 20px 0 20px 0;
+}
+
+.ui.segment {
+    border: none;
+    box-shadow: none;
+}
+
+/* responsive square images */
+.field-content {
+    width:10%;
+    padding-bottom:10%;
+    border-radius: 50%;
+    margin:auto;
+    overflow:hidden;
+    position:relative;
+    background:#000
+}
+
+.field-content img {
+   position:absolute;
+   width:10%;
+    min-width:100%;
+    min-height:100%;
+}
+
 /* create pagination buttons */
 /* input[type="button"] {
     font-family: Lato, sans-serif;

@@ -27,6 +27,11 @@ cloudinary.config({
 //     cb(null, true);
 // };
 
+function cropImage(image){
+    var filename = image.split("/").pop();
+    return cloudinary.url(filename, { width: 500, height: 500, crop: "fill" });
+}
+
 function destroyFromCloudinary(image){
     var filename = image.split("/").pop();
     var publicId = filename.split(".").shift();
@@ -41,5 +46,6 @@ function destroyFromCloudinary(image){
 module.exports = {
     upload: upload,
     cloudinary: cloudinary,
+    cropImage: cropImage,
     destroyFromCloudinary: destroyFromCloudinary
 }
