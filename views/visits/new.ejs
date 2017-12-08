@@ -69,13 +69,21 @@
             },
             onApprove: function() {
                 var orders = $('.orderData');
+                $('#activeOrders').html("");
                 for(var i=0; i<orders.length; i++){
                     var parseOrder = JSON.parse(orders[i].value);
-                    $('#activeOrders').append("<li>" + parseOrder.name + "<input class='approvedOrders' type='hidden' name ='orders' value='" + orders[i].value + "'></li>");
+                    $('#activeOrders').append("<li>" + parseOrder.name + " || " + parseOrder.type + "<input class='approvedOrders' type='hidden' name ='orders' value='" + orders[i].value + "'></li>");
                 }
             },
             onShow: function() {
                 $('#selectedOrders').html("");
+                var orderData = $('.approvedOrders');
+                if(orderData && orderData.length > 0){
+                    for(var i=0; i<orderData.length; i++){
+                        var orderText = JSON.parse(orderData[i].value);
+                        $("#selectedOrders").append("<li class='listedOrders'><span><i class='fa fa-trash-o'></i></span> " + orderText.name + "<input class='orderData' type='hidden' value='" + orderData[i].value + "'></li>");                    
+                    }
+                }                
             }
           })
         .modal('show')
