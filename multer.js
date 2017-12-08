@@ -4,7 +4,7 @@ var storage = multer.diskStorage({
     destination: function(req, file, callback){
         callback(null, "./tmp")
     },
-    allowedFormats: ["jpg", "png", "jpeg", "gif"],
+    allowedFormats: ["jpg", "png", "jpeg", "gif", "tif"],
     filename: function(req, file, callback){
         callback(null, Date.now() + file.originalname);
     }

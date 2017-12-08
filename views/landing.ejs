@@ -3,11 +3,20 @@
     <header>
         <title>Pawtal</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
     </header>
-    <body>
-            <h1>Welcome to Pawtal!</h1>
-            <a href="/patients">View all patients</a>
-            <a class = "ui green button" href="/appointments">Log In</a>
-            <a class = "ui blue button" href="">Create Account</a>
+    <body id="landingContainer">
+        <div >
+            <div class="ui stackable grid container">
+                <div class="ten wide column">
+                    <img class="ui fluid image" src="/landing/mainGraphic.png" alt="">                    
+                </div>
+                <div class="six wide column" id="landingHeader">
+                    <h1>Welcome to Pawtal!</h1>
+                    <a class = "ui green button" href="/appointments">Log In</a>
+                    <a class = "ui blue button" href="">Create Account</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

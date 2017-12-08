@@ -20,9 +20,12 @@
 <h4 class="ui horizontal clearing divider header"><i class="paw icon"></i><%= owner.firstName %>'s Registered Pets</h4>
 
 <div class="ui stackable cards">
-    <% pets.forEach(function(pet){ %>      
+    <% pets.forEach(function(pet){ %>  
     <div class="card">
-        <a class="image" href="/patients/<%= pet._id %>">
+        <a class="ui image" href="/patients/<%= pet._id %>">
+                <div class="ui red ribbon label">
+                    <i class="calendar icon"></i>
+                </div>
             <img src="<%= pet.avatar %>" alt="<%= pet.name %>">                 
         </a>
         <div class="content">
@@ -31,6 +34,5 @@
     </div>
     <% }); %>
 </div>
-
 
 <% include ../partials/footer %>

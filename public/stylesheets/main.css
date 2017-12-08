@@ -7,6 +7,17 @@
     display: inline;
 }
 
+/*landing page */
+#landingContainer {
+    background: #EB881E;
+    padding: 50px 0 50px 0;
+}
+
+#landingHeader {
+    margin: auto 0;
+    color: white;
+}
+
 /* index pages for patients, owners, and visits */
 .rowUrl {
     cursor: pointer;

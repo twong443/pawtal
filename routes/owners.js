@@ -3,6 +3,7 @@ var router = express.Router();
 var states = require("datasets-us-states-names");
 var countries = require("country-list")();
 var multer = require("../multer");
+var async = require("async");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
@@ -31,7 +32,13 @@ router.get("/:id", function(req, res){
                     console.log(err);
                     res.redirect("/owners");
                 } else {
-                    res.render("owners/show", {owner: foundOwner, pets: foundPatients});            
+                    Appt.find({'patient.id': {$in: foundPatients._id}}, function(err, foundAppts){
+                        if(err){
+                            console.log(err);
+                            res.redirect("/owners");
+                        }
+                        res.render("owners/show", {owner: foundOwner, pets: foundPatients});                                    
+                    });
                 }
             });
         }
