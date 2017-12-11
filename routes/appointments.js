@@ -1,13 +1,15 @@
 var express = require("express");
 var router = express.Router();
+var moment = require("moment");
 var Patient = require("../models/patients");
 var Owner = require("../models/owners");
 var Appt = require("../models/appointments");
 
+var today = new Date();
+
 // READ ALL & SHOW
 router.get("/", function(req, res){
-    var today = getTodayDate();
-    Appt.find({}, null, {sort: {"date": 1, "time": 1}}, function(err, allAppts){
+    Appt.find({date : {$gte: today}}, null, {sort: {"date": 1, "time": 1}}, function(err, allAppts){
         if(err){
             console.log(err);
             res.redirect(back);
@@ -30,7 +32,7 @@ router.post("/", function(req, res){
         name: parsePatient.name,
         avatar: parsePatient.avatar
     }
-    if(req.body.date < getTodayDate()){
+    if(new Date(req.body.appt.date) < new Date()){
         console.log("You can't make appointments in the past");
         res.redirect("back");
     } else {
@@ -93,22 +95,22 @@ router.delete("/:id", function(req, res){
     });
 });
 
-function getTodayDate(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
+// function getTodayDate(){
+//     var today = new Date();
+//     var dd = today.getDate();
+//     var mm = today.getMonth()+1; //January is 0!
+//     var yyyy = today.getFullYear();
     
-    if(dd<10) {
-        dd = '0'+dd
-    } 
+//     if(dd<10) {
+//         dd = '0'+dd
+//     } 
     
-    if(mm<10) {
-        mm = '0'+mm
-    } 
+//     if(mm<10) {
+//         mm = '0'+mm
+//     } 
     
-    return today = yyyy + "-" + mm + "-" + dd;
-}
+//     return today = mm + "-" + dd + "-" + yyyy;
+// }
 
 
 module.exports = router;

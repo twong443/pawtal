@@ -22,6 +22,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
+app.locals.moment = require("moment"); // Now moment is available for use in all of view files via the variable named moment
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/assets"));
 // faker.seedDB();

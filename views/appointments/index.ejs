@@ -4,11 +4,11 @@
     <div class="four wide column">
         <div class="ui left vertical fluid menu">
             <a class="item" href="/appointments/new"><i class="plus icon"></i> New Appointment</a>
-            <div class="item"><strong>Today, <%= today %></strong></div>
+            <div class="item"><strong>Today, <%= moment(today).format('L') %></strong></div>
             <% appts.forEach(function(appt){ %>
                 <a class="item apptTabItem" data-tab="<%= appt._id %>">
                     <h4 class="ui header"><%= appt.patient.name %></h4>
-                    <p><%= appt.date %> <%= appt.time %></p>
+                    <p><%= moment(appt.date).format('L') %> <%= appt.time %></p>
                 </a>
             <% }); %>
         </div>

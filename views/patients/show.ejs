@@ -10,8 +10,8 @@
         </form>
     </div>
     <h2><%= pet.name %></h2>
-    <p><i class="paw icon"></i> <%= pet.type %>&emsp;|&emsp;<%= pet.breed %>&emsp;|&emsp;<%= pet.dob %>&emsp;|&emsp;<%= pet.gender %>&emsp;|&emsp;<%= pet.color %>&emsp;|&emsp;<%= pet.weight %> lbs</p>
-    <p>Last Visited <%= pet.lastVisited %></p>
+    <p><i class="paw icon"></i> <%= pet.type %>&emsp;|&emsp;<%= pet.breed %>&emsp;|&emsp;<%= moment(pet.dob).calendar() %>&emsp;|&emsp;<%= pet.gender %>&emsp;|&emsp;<%= pet.color %>&emsp;|&emsp;<%= pet.weight %> lbs</p>
+    <p>Last Visited <%= moment(pet.lastVisited).fromNow() %></p>
 </div>
 
 <h4 class="ui horizontal clearing divider header"><i class="user icon"></i>Client Details</h4>

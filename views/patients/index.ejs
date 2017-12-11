@@ -22,10 +22,10 @@
                 <td><%= pet.type %></td>
                 <td><%= pet.breed %></td>
                 <td><%= pet.color %></td>
-                <td><%= pet.dob %></td>
+                <td><%= moment(pet.dob).calendar() %></td>
                 <td><%= pet.gender %></td>                     
                 <td><%= pet.owner.firstName + " " + pet.owner.lastName %></td>                     
-                <td><%= pet.lastVisited %></td>                   
+                <td><%= moment(pet.lastVisited).calendar() %></td>                   
             </tr>             
             <% }); %>
         </tbody>

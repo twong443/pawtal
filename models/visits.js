@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var visitSchema = new mongoose.Schema({
-    date: String,
+    date: { type: Date, default: Date.now },
     time: String,
     reason: String,
     weight: String,

@@ -36,8 +36,8 @@ var randomOwner = function() {
 }
 
 var randomPet = function(ownerId, ownerFirstName, ownerLastName) {
-    var formattedDob = moment(faker.date.between('2007-01-01', '2017-11-02')).format('YYYY-MM-DD');
-    var formattedLastVisited = moment(faker.date.past()).format('YYYY-MM-DD');
+    var formattedDob = moment(faker.date.between('01-01-2007', '11-02-2017')).format('MM-DD-YYYY');
+    var formattedLastVisited = moment(faker.date.past()).format('MM-DD-YYYY');
     var patientType = species[Math.floor(Math.random()*species.length)];
     var patientBreed = "";
     var avatar = "";

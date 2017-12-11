@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var apptSchema = new mongoose.Schema({
-    date: String,
+    date: { type: Date },
     time: String,
     reason: String,
     notes: String,

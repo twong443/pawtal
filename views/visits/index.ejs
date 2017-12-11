@@ -18,7 +18,7 @@
     <tbody>
         <% visits.forEach(function(visit){ %>
         <tr class="visitRows" data-id="<%= visit._id %>">     
-            <td><%= visit.date %></td>                
+            <td><%= moment(visit.date).calendar() %></td>
             <td><%= visit.time %></td>                
             <td><%= visit.reason %></td>
             <td><%= visit.diagnosis %></td>                

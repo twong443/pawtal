@@ -6,7 +6,7 @@
                 </div>
             
                 <a href="/patients/<%= pet._id %>">
-                    <span id="petName"><strong><%= pet.name %></strong></span> <span id="petDetails">(<%= pet.type %> | <%= pet.breed %> | <%= pet.dob %>)</span></p>
+                    <span id="petName"><strong><%= pet.name %></strong></span> <span id="petDetails">(<%= pet.type %> | <%= pet.breed %> | <%= moment(pet.dob).format('L') %>)</span></p>
                 </a>
                 <a class="small ui blue button" id="visitButton" href="/patients/<%= pet._id %>/visits/new">Start Visit</a>
             </div>
@@ -14,7 +14,7 @@
     <div class="ui fitted divider"></div>
     <div id="appointmentDetails">
         <h3>Appointment Details</h3>
-        <p><span id="apptDateTime"><%= appt.date %> <%= appt.time %></span>
+        <p><span id="apptDateTime"><%= moment(appt.date).format('L') + " " + appt.time %></span>
             <br><%= appt.reason %>
             <br><%= appt.notes %>
         </p>  
