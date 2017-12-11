@@ -10,13 +10,20 @@ var Appt = require("../models/appointments");
 var Visit = require("../models/visits");
 
 //INDEX ROUTE - show all patients
-router.get("/", function(req, res){
-    Patient.find({}, function(err, allPatients){
-        Owner.find({}, function(err, allOwners){
-            if(err){
+router.get("/", function(req, res) {
+    var perPage = 20;
+    var pageQuery = parseInt(req.query.page);
+    var pageNumber = pageQuery ? pageQuery : 1;
+    Patient.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allPatients) {
+        Patient.count().exec(function (err, count) {
+            if (err) {
                 console.log(err);
             } else {
-                res.render("patients/index", {pets: allPatients, owners: allOwners});
+                res.render("patients/index", {
+                    pets: allPatients,
+                    current: pageNumber,
+                    pages: Math.ceil(count / perPage)
+                });
             }
         });
     });

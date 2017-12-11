@@ -29,6 +29,61 @@
             </tr>             
             <% }); %>
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="8">
+                    <% if (pages && pages > 0) { %>           
+                    <div class="ui right floated pagination menu">
+                        <% if (current == 1) { %>  
+                        <a class="disabled item">First</a>
+                        <% } else { %>
+                        <a class="item" href="/patients">First</a>
+                        <% } %>
+                        <% if (current == 1) { %>                            
+                        <a class="icon disabled item">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <% } else { %>
+                        <a class="icon disabled item" href="/patients?page=<%= Number(current) - 1 %>">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <% } %>
+                        
+                        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                        <a class="disabled item">...</a>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                        <a class="item"><%= i %></a>
+                        <% } else { %>
+                        <a class="item" href="/patients?page=<%= i %>"><%= i %></a>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                        <a class="disabled item">...</a>
+                        <% } %>
+                        <% } %>
+                 
+                        <% if (current == pages) { %>
+                        <a class="icon disabled item">
+                            <i class="right chevron icon"></i>
+                        </a>
+                        <% } else { %>
+                        <a class="icon disabled item" href="/patients?page=<%= Number(current) + 1 %>">
+                            <i class="right chevron icon"></i>
+                        </a>
+                        <% } %>
+                        
+                        <% if (current == pages) { %>
+                        <a class="disabled item">Last</a>
+                        <% } else { %>
+                        <a class="item" href="/patients?page=<%= pages %>">Last</a>
+                        <% } %>
+                    </div>
+                    <% } %>        
+                </th>
+            </tr>
+        </tfoot>
     </table>
 
 <script>

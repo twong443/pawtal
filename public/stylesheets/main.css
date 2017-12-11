@@ -7,6 +7,11 @@
     display: inline;
 }
 
+/* footer */
+footer {
+    background: #2185d0;
+    padding: 100px;
+}
 /*landing page */
 #landingContainer {
     background: #EB881E;
@@ -16,6 +21,7 @@
 #landingHeader {
     margin: auto 0;
     color: white;
+    text-align: center;
 }
 
 /* index pages for patients, owners, and visits */
