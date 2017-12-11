@@ -9,22 +9,6 @@ router.get("/visits", function(req, res){
 });
 
 // RENDER LIST OF VISITS FOR ONE PATIENT
-router.get("/", function(req, res) {
-    
-    Patient.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allPatients) {
-        Patient.count().exec(function (err, count) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render("patients/index", {
-                    pets: allPatients,
-                    current: pageNumber,
-                    pages: Math.ceil(count / perPage)
-                });
-            }
-        });
-    });
-});
 router.get("/patients/:id/visits", function(req, res){
     var perPage = 6;
     var pageQuery = parseInt(req.query.page);
@@ -33,39 +17,26 @@ router.get("/patients/:id/visits", function(req, res){
         if(err || !foundPatient){
             console.log(err);
         } else {
-            Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, foundVisits){
-                Visit.count().exec(function (err, count) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render("visits/index", {
-                            visits: foundVisits,
-                            pet: foundPatient,
-                            current: pageNumber,
-                            pages: Math.ceil(count / perPage)
-                        });
-                    }
-                });                            
+            Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}})
+                .skip((perPage * pageNumber) - perPage)
+                .limit(perPage)
+                .exec(function(err, foundVisits){
+                    Visit.count().exec(function (err, count) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.render("visits/index", {
+                                visits: foundVisits,
+                                pet: foundPatient,
+                                current: pageNumber,
+                                pages: Math.ceil(count / perPage)
+                            });
+                        }
+                    });                            
             });
         }
     });
 });
-
-// router.get("/patients/:id/visits", function(req, res){
-//     Patient.findById(req.params.id, function(err, foundPatient){
-//         if(err || !foundPatient){
-//             console.log(err);
-//         } else {
-//             Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}, function(err, foundVisits){
-//                 if(err){
-//                     console.log(err);
-//                 } else {
-//                     res.render("visits/index", {visits: foundVisits, pet: foundPatient});   
-//                 }                             
-//             });
-//         }
-//     });
-// });
 
 // NEW
 router.get("/patients/:id/visits/new", function(req, res){
@@ -100,30 +71,15 @@ router.get("/patients/:id/visits/:visit_id", function(req, res){
 // CREATE
 router.post("/patients/:id", function(req, res){
     Patient.findById(req.params.id, function(err, foundPatient){
-        var date = req.body.date,
-            time = req.body.time,
-            reason = req.body.reason,
-            weight = req.body.weight,
-            orders = req.body.orders,
-            diagnosis = req.body.diagnosis,
-            notes = req.body.notes;
         var parseOrders = [];
-        var totalCost = calcOrders(orders, parseOrders);
-        var newVisit = {
-            date: date,
-            time: time,
-            reason: reason,
-            weight: weight,
-            orders: parseOrders,
-            diagnosis: diagnosis,
-            notes: notes,
-            totalCost: totalCost,
-            patient: {
-                id: foundPatient._id,
-                name: foundPatient.name
-            }
-        }
-        Visit.create(newVisit, function(err, visit){
+        var totalCost = calcOrders(req.body.orders, parseOrders);
+        req.body.visit.orders = parseOrders;
+        req.body.visit.patient = {
+            id: foundPatient._id,
+            name: foundPatient.name
+        },
+        req.body.visit.totalCost = totalCost;
+        Visit.create(req.body.visit, function(err, visit){
             if(err){
                 console.log(err);
                 res.redirect("back");

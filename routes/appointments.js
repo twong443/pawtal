@@ -6,12 +6,13 @@ var Appt = require("../models/appointments");
 
 // READ ALL & SHOW
 router.get("/", function(req, res){
+    var today = getTodayDate();
     Appt.find({}, null, {sort: {"date": 1, "time": 1}}, function(err, allAppts){
         if(err){
             console.log(err);
             res.redirect(back);
         } else {
-            res.render("appointments/index", {appts: allAppts});            
+            res.render("appointments/index", {appts: allAppts, today: today});            
         }
     });
 });
@@ -24,27 +25,16 @@ router.get("/new", function(req, res){
 // CREATE
 router.post("/", function(req, res){
     var parsePatient = JSON.parse(req.body.pet);
-    var date = req.body.date,
-        time = req.body.time,
-        reason = req.body.reason,
-        notes = req.body.notes,
-        patient = parsePatient;
-    var newAppt = {
-        date: date,
-        time: time,
-        reason: reason,
-        notes: notes,
-        patient: {
-            id: patient._id,
-            name: patient.name,
-            avatar: patient.avatar
-        }
+    req.body.appt.patient = {
+        id: parsePatient._id,
+        name: parsePatient.name,
+        avatar: parsePatient.avatar
     }
     if(req.body.date < getTodayDate()){
         console.log("You can't make appointments in the past");
         res.redirect("back");
     } else {
-        Appt.create(newAppt, function(err){
+        Appt.create(req.body.appt, function(err){
             if(err){
                 console.log(err);
                 res.redirect(back);

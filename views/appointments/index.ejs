@@ -4,7 +4,7 @@
     <div class="four wide column">
         <div class="ui left vertical fluid menu">
             <a class="item" href="/appointments/new"><i class="plus icon"></i> New Appointment</a>
-            <div class="item"><strong>Today, 2017/12/7</strong></div>
+            <div class="item"><strong>Today, <%= today %></strong></div>
             <% appts.forEach(function(appt){ %>
                 <a class="item apptTabItem" data-tab="<%= appt._id %>">
                     <h4 class="ui header"><%= appt.patient.name %></h4>
@@ -18,27 +18,24 @@
 </div>
 
 <script>
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
-
     // Display most recent appointment on window load
-    var firstTabId= $(".apptTabItem")[0].getAttribute("data-tab");
+    var firstTabId = $(".apptTabItem")[0].getAttribute("data-tab");
     var param = getUrlParameter("apptId");
     if(param){
         firstTabId = param;
     }
 
     $( window ).on("load", function() {
-        loadPetInfo(firstTabId); 
+        loadPetInfo(firstTabId);
+        var selectedTab = $("[data-tab=" + firstTabId + "]");
+        selectedTab.addClass("active");
     });
 
     // Get patient info and display on click
     $(".apptTabItem").on("click", function(){
+        $(".apptTabItem").removeClass("active");
         var apptId = $(this).attr("data-tab");
+        $(this).addClass("active");
         loadPetInfo(apptId);        
     });
     
@@ -47,6 +44,13 @@
             $(".apptPatientInfo").html(data);
         });
     }
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
 </script>
 
 <% include ../partials/footer %>
