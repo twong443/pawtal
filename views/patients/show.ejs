@@ -18,14 +18,13 @@
 
 <div id="ownerDetails">
     <h4><a href="/owners/<%= owner._id %>"><%= owner.firstName %> <%= owner.lastName %></a></h4>
-        <div id="ownerFloatRight">
-            <p><%= owner.phone %>
-            <br><%= owner.email %></p>
-        </div>
-        <p><%= owner.address.street %> <%= owner.address.secondAddress %>
-        <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
-        <br><%= owner.address.country %></p>
-        
+    <div id="ownerFloatRight">
+        <p><%= owner.phone %>
+        <br><%= owner.email %></p>
+    </div>
+    <p><%= owner.address.street %> <%= owner.address.secondAddress %>
+    <br><%= owner.address.city %>, <%= owner.address.state %> <%= owner.address.zipCode %>
+    <br><%= owner.address.country %></p>
 </div>
 
 <h4 class="ui horizontal clearing divider header"><i class="calendar icon"></i>Upcoming Appointments</h4>

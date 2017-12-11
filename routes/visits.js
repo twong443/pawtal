@@ -9,21 +9,63 @@ router.get("/visits", function(req, res){
 });
 
 // RENDER LIST OF VISITS FOR ONE PATIENT
+router.get("/", function(req, res) {
+    
+    Patient.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allPatients) {
+        Patient.count().exec(function (err, count) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("patients/index", {
+                    pets: allPatients,
+                    current: pageNumber,
+                    pages: Math.ceil(count / perPage)
+                });
+            }
+        });
+    });
+});
 router.get("/patients/:id/visits", function(req, res){
+    var perPage = 6;
+    var pageQuery = parseInt(req.query.page);
+    var pageNumber = pageQuery ? pageQuery : 1;
     Patient.findById(req.params.id, function(err, foundPatient){
         if(err || !foundPatient){
             console.log(err);
         } else {
-            Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}, function(err, foundVisits){
-                if(err){
-                    console.log(err);
-                } else {
-                    res.render("visits/index", {visits: foundVisits, pet: foundPatient});   
-                }                             
+            Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, foundVisits){
+                Visit.count().exec(function (err, count) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render("visits/index", {
+                            visits: foundVisits,
+                            pet: foundPatient,
+                            current: pageNumber,
+                            pages: Math.ceil(count / perPage)
+                        });
+                    }
+                });                            
             });
         }
     });
 });
+
+// router.get("/patients/:id/visits", function(req, res){
+//     Patient.findById(req.params.id, function(err, foundPatient){
+//         if(err || !foundPatient){
+//             console.log(err);
+//         } else {
+//             Visit.find({'patient.id': foundPatient._id}, null, {sort: {"date": -1, "time": -1}}, function(err, foundVisits){
+//                 if(err){
+//                     console.log(err);
+//                 } else {
+//                     res.render("visits/index", {visits: foundVisits, pet: foundPatient});   
+//                 }                             
+//             });
+//         }
+//     });
+// });
 
 // NEW
 router.get("/patients/:id/visits/new", function(req, res){

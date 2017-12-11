@@ -24,15 +24,12 @@
 </table>
 <% } %>
 
-
-<% var petId = pet._id; %>
-
 <script>
     var rowUrls = document.querySelectorAll(".rowUrl");
     rowUrls.forEach(function(row){
-        var visitId = row.attributes[1].textContent;
+        var apptId = row.attributes[1].textContent;
         row.addEventListener("click", function(){          
-            window.location.assign("/appointments");
+            window.location.assign("/appointments?apptId=" + apptId);
         });
     });
 

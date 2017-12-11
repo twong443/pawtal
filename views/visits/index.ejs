@@ -17,7 +17,7 @@
     </thead>
     <tbody>
         <% visits.forEach(function(visit){ %>
-        <tr class="rowUrl" data-id="<%= visit._id %>">     
+        <tr class="visitRows" data-id="<%= visit._id %>">     
             <td><%= visit.date %></td>                
             <td><%= visit.time %></td>                
             <td><%= visit.reason %></td>
@@ -27,14 +27,68 @@
         </tr>             
         <% }); %>
     </tbody>
+    <% if (pages && pages > 1) { %>                   
+    <tfoot>
+        <tr>
+            <th colspan="6">
+                <div class="ui right floated pagination menu">
+                    <% if (current == 1) { %>  
+                    <a class="disabled item">First</a>
+                    <% } else { %>
+                    <a class="item" id="firstBtn" href="/patients/<%= pet._id %>/visits">First</a>
+                    <% } %>
+                    <% if (current == 1) { %>                            
+                    <a class="icon disabled item">
+                        <i class="left chevron icon"></i>
+                    </a>
+                    <% } else { %>
+                    <a class="icon disabled item" href="/patients/<%= pet._id %>/visits?page=<%= Number(current) - 1 %>">
+                        <i class="left chevron icon"></i>
+                    </a>
+                    <% } %>
+                    
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                    <a class="disabled item">...</a>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                    <a class="item"><%= i %></a>
+                    <% } else { %>
+                    <a class="item" href="/patients/<%= pet._id %>/visits?page=<%= i %>"><%= i %></a>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                    <a class="disabled item">...</a>
+                    <% } %>
+                    <% } %>
+                
+                    <% if (current == pages) { %>
+                    <a class="icon disabled item">
+                        <i class="right chevron icon"></i>
+                    </a>
+                    <% } else { %>
+                    <a class="icon disabled item" href="/patients/<%= pet._id %>/visits?page=<%= Number(current) + 1 %>">
+                        <i class="right chevron icon"></i>
+                    </a>
+                    <% } %>
+                    
+                    <% if (current == pages) { %>
+                    <a class="disabled item">Last</a>
+                    <% } else { %>
+                    <a class="item" href="/patients/<%= pet._id %>/visits?page=<%= pages %>">Last</a>
+                    <% } %>
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+    <% } %>            
 </table>
 <% } %>
-
 
 <% var petId = pet._id; %>
 
 <script>
-    var rowUrls = document.querySelectorAll(".rowUrl");
+    var rowUrls = document.querySelectorAll(".visitRows");
     rowUrls.forEach(function(row){
         var visitId = row.attributes[1].textContent;
         row.addEventListener("click", function(){
